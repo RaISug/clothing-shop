@@ -1,0 +1,543 @@
+<DOCTYPE html>
+<html>
+	
+	<head>
+	
+		<meta charset="UTF-8"/>
+	
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">	
+		
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		
+		<style>
+		
+			html {
+				margin: 0px;
+				padding: 0px;
+				
+				min-width: 100%;
+				max-width: 100%;
+				min-height: 100%;
+				max-height: 100%;
+				
+				background-image: url('https://www.wpclipart.com/textures/background_tiles/hazy_background_tile.png');
+				background-repeat: repeat;
+			}
+		
+			body {
+				margin: 0px;
+				padding: 0px;
+				
+				min-width: 100%;
+				max-width: 100%;
+				min-height: 100%;
+				max-height: 100%:
+			}
+			
+			img {
+				width: 100%;
+				height: 100%;
+			}
+			
+			.fillParent {
+				margin: 0px;
+				padding: 0px;
+				
+				min-width: 100%;
+				min-height: 100%;
+			}
+			
+			.displayInline {
+				display: inline;
+			}
+			
+			.FloatLeft {
+				float: left;
+			}
+			
+			.FloatRight {
+				float: right;
+			}
+			
+			.OneHundredPercentsWidth {
+				min-width: 100%;
+				max-width: 100%;
+			}
+			
+			.SixtyPercentsWidth {
+				min-width: 60%;
+				max-width: 60%;
+			}
+			
+			.FiftyPercentsWidth {
+				min-width: 50%;
+				max-width: 50%;
+			}
+			
+			.FortyPercentsWidth {
+				min-width: 40%;
+				max-width: 40%;
+			}
+			
+			.ThirtyPercentsWidth {
+				min-width: 30%;
+				max-width: 30%;
+			}
+			
+			.TwentyPercentsWidth {
+				min-width: 20%;
+				max-width: 20%;
+			}
+			
+			.TenPercentsWidth {
+				min-width: 10%;
+				max-width: 10%;
+			}
+			
+			.EightyPercentsWidth {
+				min-width: 80%;
+				max-width: 80%;
+			}
+			
+			.TenPercentsHeight {
+				min-height: 10%;
+				max-height: 10%;
+			}
+			
+			.TwentyPercentsHeight {
+				min-height: 20%;
+				max-height: 20%;`
+			}
+			
+			.FortyPercentsHeight {
+				min-height: 40%;
+				max-height: 40%;
+			}
+			
+			.FiftyPercentsHeight {
+				min-height: 50%;
+				max-height: 50%;
+			}
+			
+			.SixtyPercentsHeight {
+				min-height: 60%;
+				max-height: 60%;
+			}
+			
+			.EightyPercentsHeight {
+				min-height: 80%;
+			}
+			
+			.OneHundredPercentsHeight {
+				min-height: 100%;
+			}
+			
+			.MarginRightTenPercents {
+				margin-right: 10%;
+			}
+			
+			.pageBackgroundColor {
+				background-color: #333;
+			}
+			
+			.InheritedWidth {
+				width: inherit;
+			}
+			
+			.InheritedHeight {
+				height: inherit;
+			}
+			
+			.CategoryImage {
+				z-index: -1;
+			}
+			
+			.navigationButtons {
+				padding: 30px 13px; 
+				border: none; 
+				background-color:inherit; 
+				font-size: 18px;
+				color: white;
+				box-sizing: border-box;
+				margin-left: -4px;
+			}
+			
+			.navigationButtons:hover {
+				background-color: #969696;
+			}
+			
+			.dropdowns {
+				display: none; 
+				position: absolute; 
+				margin-top: -1px; 
+				background-color: white; 
+				color: white;
+				background-color: #969696;
+				box-shadow: 5px 10px 18px #888888;
+			}
+			
+			.dropdowns a {
+				color:white;
+				text-decoration: none;
+				padding: 0px 35px;
+				font-size: 18px;
+			}
+
+			.dropdowns a:hover {
+				color: #333;
+			}
+
+			.leftCaroselArrows {
+				position: absolute; 
+				top: 50%;
+				margin-left: 5px;
+				float: left;
+				min-height: 20px; 
+				min-width: 20px; 
+				border-radius: 45px; 
+				background-color: #333; 
+				padding: 5px 25px; 
+				opacity: 0.8;
+			}
+
+			.leftCaroselArrows:hover {
+				opacity: 1;
+			}
+			
+			.rightCaroselArrows {
+				position: absolute; 
+				top: 50%; 
+				right: 0;
+				margin-right: 5px; 
+				min-height: 20px; 
+				min-width: 20px; 
+				border-radius: 45px; 
+				background-color: #333; 
+				padding: 5px 25px; 
+				opacity: 0.8;
+			}
+
+			.rightCaroselArrows:hover {
+				opacity: 1;
+			}
+			
+			.CategoryImageName {
+				display: none;
+				text-align: center; 
+				position: absolute;
+				opacity: 0.8; 
+				color: white;
+				background-color: black; 
+				font-size: 35px; 
+				z-index: 10; 
+				height: inherit;
+				cursor: pointer;
+			}
+		</style>
+	
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+		
+	</head>
+	
+	<body>
+		
+		<div class="fillParent">
+			<div id="headerBackground" class="OneHundredPercentsWidth pageBackgroundColor">
+				<ul class="headerLink" style="display: inline; padding: 0px;">
+					<li style="display: inherit;">
+						<button class="navigationButtons" id="link1" >Мъже</button>
+						<div class="dropdowns" id="dropdown1">
+							<ul style="list-style-type: none; display: inline;">
+								<li>
+									<a href="#">Палта</a>
+								</li>
+								<li>
+									<a href="#">Обувки</a>
+								</li>
+								<li>
+									<a href="#">Сака</a>
+								</li>
+								<li>
+									<a href="#">Ризи</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li style="display: inherit;">
+						<button class="navigationButtons" id="link2">Жени</button>
+						<div class="dropdowns" id="dropdown2">
+							<ul style="list-style-type: none; display: inline;">
+								<li>
+									<a href="#">Палта</a>
+								</li>
+								<li>
+									<a href="#">Официални Обувки</a>
+								</li>
+								<li>
+									<a href="#">Спортни Ризи</a>
+								</li>
+								<li>
+									<a href="#">Официални Ризи</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li style="display: inherit;">
+						<button class="navigationButtons" id="link3">Колекции</button>
+						<div class="dropdowns" id="dropdown3">
+							<ul style="list-style-type: none; display: inline;">
+								<li>
+									<a href="#">Пролет/Лято 2018</a>
+								</li>
+								<li>
+									<a href="#">Eсен/Зима 2018/2019</a>
+								</li>
+								<li>
+									<a href="#">Пролет/Лято 2019</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+				<!--
+				<div>
+					<input class="headerColorPicker" type="color" />
+				</div>
+				-->
+			</div>
+			
+			<div id="carosel" class="OneHundredPercentsWidth OneHundredPercentsHeight FloatLeft">
+				
+				<img src="http://carouselclothing.ca/userContent/images/Home%20Page%20Images/boutique_clothing_at_1_4th_the_price.jpg" alt="image1">
+				<img style="display: none;" src="http://media.missselfridge.com/wcsstore/ConsumerDirectStorefrontAssetStore/images/colors/color5/cms/pages/static/static-0000072052/images/WK11_DESKTOP_HERO_THURSDAY.gif" alt="image2">
+				<img style="display: none;" src="http://dunnes.btxmedia.com/pws/client/images/homepage/18-39/mobile/michael-mortell-home.jpg" alt="image3">
+				
+				<div class="leftCaroselArrows">
+					<a href="#" onclick="moveToPreviousImage()">
+						<i style="color: white" class="fas fa-angle-left fa-5x"></i>
+					</a>
+				</div>
+				
+				<div class="rightCaroselArrows">
+					<a href="#" onclick="moveToNextImage()">
+						<i style="color: white" class="fas fa-angle-right fa-5x"></i>
+					</a>
+				</div>
+			</div>
+			<div class="OneHundredPercentsWidth">
+				<div class="TenPercentsWidth FloatLeft">
+					Left Panel
+				</div>
+				
+				<div class="EightyPercentsWidth FloatLeft" style="margin-top: 30px; margin-bottom: 30px;">
+					<div class="ThirtyPercentsWidth FloatLeft">
+						<div style="height: 400px; max-height: 400px; margin: 20px 20px 20px 20px; overflow: hidden;">
+							<div class="CategoryImageName" data-href="t.php/products/api/v1/category/saka">
+								<a style="position: relative;  top: 40%; text-decoration: none; color:white;">САКА</a>
+							</div>
+							<img class="CategoryImage" src="https://www.bigotti.eu/img/products/9/3/e/a/0/4/306x460_VBSCWW1DE1961119248-1.jpg" alt="сака">
+						</div>
+						
+						<div class="Category" style="height: 200px; margin: 20px 20px 20px 20px; overflow: hidden; width: inherit;">
+							<div class="CategoryImageName" data-href="t.php/products/api/v1/category/obuvki" style="margin: 0 auto;">
+								<a style="position: relative;  top: 40%; text-decoration: none; color:white;">ОБУВКИ</a>
+							</div>
+							<img class="CategoryImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKNov40O797g9x8aa3Y8fUlauBFNS5dwTFbBxt1bUcHzqiixzE" alt="обувки">
+						</div>
+					</div>
+					
+					<div class="ThirtyPercentsWidth FloatLeft" style="background-color: transparent;">
+						<div style="height: 250px; margin: 20px 20px 20px 20px; overflow: hidden;">
+							<div class="CategoryImageName" data-href="t.php/products/api/v1/category/pantaloni">
+								<a style="position: relative; top: 40%; text-decoration: none; color:white;">ПАНТАЛОНИ</a>
+							</div>
+							<img style="min-width: inherit" class="CategoryImage" src="https://mensclothingswitzerland.com/4323-thickbox_default/mezczyzni-wedrowki-pant-cool-linii-frontu-potrojne-klinowe-spodni-uzytkownika.jpg" alt="панталони">
+						</div>
+						
+						<div style="height: 300px; margin: 20px 20px 20px 20px; overflow: hidden;">
+							<div class="CategoryImageName" data-href="t.php/products/api/v1/category/rizi">
+								<a style="position: relative; top: 40%;  text-decoration: none; color:white;">РИЗИ</a>
+							</div>
+							<img class="CategoryImage" src="https://www.dressyou.bg/blog/wp-content/uploads/2016/09/dressyou_second_hand_clothes_rizi.png" alt="ризи">
+						</div>
+					</div>
+					
+					<div class="ThirtyPercentsWidth FloatLeft">
+						<div style="height: 250px; margin: 20px 20px 20px 20px; overflow: hidden;">
+							<div class="CategoryImageName" data-href="t.php/products/api/v1/category/kolani">
+								<a style="position: relative; top: 40%; text-decoration: none; color:white;">КОЛАНИ</a>
+							</div>		
+							<img class="CategoryImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1z0P4zRsKYJhFVq-RS-QwvsoYOSNcWVOCRH9wI8NQs13DVqD7" alt="колани">
+						</div>
+						
+						<div style="height: 320px; margin: 20px 20px 20px 20px; overflow: hidden;">
+							<div class="CategoryImageName" data-href="t.php/products/api/v1/category/shoes">
+								<a style="position: relative; top: 40%;  text-decoration: none; color:white;">ШАПКИ</a>
+							</div>
+							<img class="CategoryImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOu0Wn8y_BNncMS8aeNnyFj84VeX1GMUOrK_SzbzB1TgS_tEDA" alt="шапки">
+						</div>
+					</div>
+				</div>
+				
+				<div class="TenPercentsWidth FloatRight">
+					Right Panel
+				</div>
+			</div>
+				
+			<div class="OneHundredPercentsWidth pageBackgroundColor FloatLeft">
+				<div class="row" style="padding: 0px; margin: 0px; color: #aea7a7">
+					<div class="col-md-4" style="text-align: center; padding-top: 20px;">
+						<p>НАШИЯТ АДРЕС</p>
+						<p>Адрес</p>
+					</div>
+		            <div class="col-md-4" style="padding-top: 20px; text-align: center">
+						<p>ПОРЪЧКА ПО ТЕЛЕФОН</p>
+						<p>Телефон 1<br>Телефон 2</p>
+					</div>
+		            <div class="col-md-4" style="text-align: center; padding-top: 20px;">
+						<p>РАБОТНО ВРЕМЕ</p>
+						<p>Понеделник - Петък : 8:00 - 17:00 часа</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script>
+			debugger;
+			
+			// dropdowns
+			
+			$.each($(".headerLink > li > button"), function() {
+				var sElementId = $(this).attr("id");
+				var sElementIndex = sElementId.substring(sElementId.length - 1);
+				
+				$("#" + sElementId).hover(function() {
+					$("#dropdown" + sElementIndex).css({
+						display: "block",
+						left: $("#" + sElementId).position().left - 4
+					});
+				}, function() {
+					$("#dropdown" + sElementIndex).css("display", "none");
+				});
+			});
+			
+			$.each($(".headerLink > li > div"), function() {
+				var sElementId = $(this).attr("id");
+				var sElementIndex = sElementId.substring(sElementId.length - 1);
+
+				$("#" + sElementId).hover(function() {
+					$("#" + sElementId).css("display", "block");
+					$("#link" + sElementIndex).css({
+						"background-color" : "#969696"
+					});
+				}, function() {
+					$("#" + sElementId).css("display", "none");
+					$("#link" + sElementIndex).css({
+						"background-color" : "#333"
+					});
+				});
+			});
+			
+			
+			$(".navigationButtons").hover(function() {
+				$(this).css("background-color", "#969696");
+			}, function() {
+				$(this).css("background-color", "#333");
+			});	
+			
+			
+			// category images 
+			
+			$(".CategoryImageName").each(function() {
+				var eParent = $(this).parent();
+
+				$(this).css({
+					"min-width" : $(eParent).css("width")
+				});
+			});
+
+			$(".CategoryImage").hover(function() {
+				var eCategoryImageName = $(this).prev();
+				
+				$(eCategoryImageName).css("display", "block");
+			}, function() {
+				var eCategoryImageName = $(this).prev();
+				
+				$(eCategoryImageName).css("display", "none");
+			});
+			
+			
+			$(".CategoryImageName").hover(function() {
+				$(this).css("display", "block");
+
+				var eCategoryImage = $(this).next();
+				$(eCategoryImage).css({
+					"transform" : "scale(1.1)",
+					"transition" : "transform 0.5s"
+				});
+			}, function() {
+				$(this).css("display", "none");
+
+				var eCategoryImage = $(this).next();
+				$(eCategoryImage).css({
+					"transform" : "scale(1)"
+				});
+			});
+			
+			$(".CategoryImageName").click(function() {
+				var sHref = $(this).data("href");
+				
+				window.location = sHref;
+			});
+			
+			// color pickers
+			
+			/*
+			$(".headerColorPicker")[0].addEventListener("change", function(event) {
+				$("#headerBackground").css("background-color", event.target.value);
+			});
+			*/
+		
+			setInterval(function() {
+				moveToNextImage();
+			}, 3000);
+			
+			function moveToPreviousImage() {
+				var images = $("#carosel > img");
+
+				var index = findIndexOfInlinedImage(images);
+				
+				$(images[index]).css("display", "none");
+				
+				if (index <= 0) {
+					$(images[images.length - 1]).css("display", "inline");
+				} else {
+					$(images[--index]).css("display", "inline");
+				}
+			}
+			
+			function moveToNextImage() {
+				var images = $("#carosel > img");
+
+				var index = findIndexOfInlinedImage(images);
+				
+				$(images[index]).css("display", "none");
+				
+				if (index >= images.length - 1) {
+					$(images[0]).css("display", "inline");
+				} else {
+					$(images[++index]).css("display", "inline");
+				}
+			}
+			
+			function findIndexOfInlinedImage(images) {
+				for (var i = 0 ; i < images.length ; i++) {
+					if ($(images[i]).css("display") === "inline") {
+						return i;
+					}
+				}
+			}
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,6 @@
+<IfModule mod_rewrite.c>
+
+RewriteEngine on	
+RewriteRule ^(.*)$ http://%{HTTP_HOST}/com.radoslav.web.shop/t.php/$1 [R=301,L]
+
+</IfModule>

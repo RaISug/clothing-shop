@@ -1,0 +1,132 @@
+html {
+	margin: 0px;
+	padding: 0px;
+	
+	min-width: 100%;
+	max-width: 100%;
+	min-height: 100%;
+	max-height: 100%;
+	
+	background-image: url('https://www.wpclipart.com/textures/background_tiles/hazy_background_tile.png');
+	background-repeat: repeat;
+}
+
+body {
+	margin: 0px;
+	padding: 0px;
+	
+	min-width: 100%;
+	max-width: 100%;
+	min-height: 100%;
+	max-height: 100%;
+	background-color: transparent;
+}
+
+.fillParent {
+	margin: 0px;
+	padding: 0px;
+	
+	min-width: 100%;
+	min-height: 100%;
+}
+
+.displayInline {
+	display: inline;
+}
+
+.FloatLeft {
+	float: left;
+}
+
+.FloatRight {
+	float: right;
+}
+
+.OneHundredPercentsWidth {
+	min-width: 100%;
+	max-width: 100%;
+}
+
+.SixtyPercentsWidth {
+	min-width: 60%;
+	max-width: 60%;
+}
+
+.FiftyPercentsWidth {
+	min-width: 50%;
+	max-width: 50%;
+}
+
+.FortyPercentsWidth {
+	min-width: 40%;
+	max-width: 40%;
+}
+
+.ThirtyPercentsWidth {
+	min-width: 30%;
+	max-width: 30%;
+}
+
+.TwentyPercentsWidth {
+	min-width: 20%;
+	max-width: 20%;
+}
+
+.TenPercentsWidth {
+	min-width: 10%;
+	max-width: 10%;
+}
+
+.EightyPercentsWidth {
+	min-width: 80%;
+	max-width: 80%;
+}
+
+.TenPercentsHeight {
+	min-height: 10%;
+	max-height: 10%;
+}
+
+.TwentyPercentsHeight {
+	min-height: 20%;
+	max-height: 20%;`
+}
+
+.FortyPercentsHeight {
+	min-height: 40%;
+	max-height: 40%;
+}
+
+.FiftyPercentsHeight {
+	min-height: 50%;
+	max-height: 50%;
+}
+
+.SixtyPercentsHeight {
+	min-height: 60%;
+	max-height: 60%;
+}
+
+.EightyPercentsHeight {
+	min-height: 80%;
+}
+
+.OneHundredPercentsHeight {
+	min-height: 100%;
+}
+
+.MarginRightTenPercents {
+	margin-right: 10%;
+}
+
+.pageBackgroundColor {
+	background-color: #333;
+}
+
+.InheritedWidth {
+	width: inherit;
+}
+
+.InheritedHeight {
+	height: inherit;
+}
