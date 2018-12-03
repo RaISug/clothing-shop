@@ -21,11 +21,11 @@ class CategoryRepository {
 
     public function persist(Category $category) {
         $connection = $this->connectionFactory->create();
-        
+
         $statement = $connection->prepare("INSERT INTO categories (name) VALUES (?)");
-        
+
         $statement->bind_param("s", $category->name());
-        
+
         if ($statement->execute() === FALSE) {
             throw new InternalServerErrorException("Failed to create category");
         }

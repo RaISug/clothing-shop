@@ -8,6 +8,8 @@ use request\Request;
 use response\Response;
 use response\ResponseBuilder;
 use service\FileService;
+use exception\NotFoundException;
+use constants\Constants;
 
 class DeleteProductController extends Controller {
 
@@ -27,7 +29,7 @@ class DeleteProductController extends Controller {
         $id = $request->getPathParameter("product");
         $product = $this->retrieveProductById($id);
 
-        $this->fileService->deleteFiles($product->imageNames());
+        $this->fileService->deleteFilesFrom($product->imageNamesAsArray(), Constants::$PRODUCTS_UPLOAD_DIRECTORY);
 
         $this->repository->deleteById($id);
 
@@ -38,7 +40,7 @@ class DeleteProductController extends Controller {
         $dbResponse = $this->repository->byId($id);
 
         if ($dbResponse->num_rows == 0) {
-            return null;
+            throw new NotFoundException("Product with the specified id does not exists");
         }
 
         return new Product($dbResponse->fetch_assoc());

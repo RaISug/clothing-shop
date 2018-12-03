@@ -8,6 +8,7 @@ use repository\ProductRepository;
 use factory\ProductFactory;
 use response\ResponseBuilder;
 use service\FileService;
+use constants\Constants;
 
 class CreateProductController extends Controller {
 
@@ -26,14 +27,14 @@ class CreateProductController extends Controller {
     public function handle(Request $request) {
         $factory = new ProductFactory();
 
-        $this->fileService->uploadFiles($request->getFiles("productimage"));
+        $this->fileService->uploadFilesInto($request->getFiles("productimage"), Constants::$PRODUCTS_UPLOAD_DIRECTORY);
         $this->repository->persist($factory->createProductFromRequest($request));
 
         return (new ResponseBuilder())->withStatusCodeOK()->build();
     }
 
     public function display(Response $response) {
-        include "com/view/administration/products/create-product.php";
+        $response->redirectTo("/administration/products/create");
     }
 
 }

@@ -34,6 +34,10 @@ class SessionService {
         $_SESSION[$name] = $value;
     }
 
+    public function removeAttribute(string $name) {
+        unset($_SESSION[$name]);
+    }
+
     public function stop() {
         $isSessionDestroyed = session_destroy();
         if ($isSessionDestroyed === FALSE) {

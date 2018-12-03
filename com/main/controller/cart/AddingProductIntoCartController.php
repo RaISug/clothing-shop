@@ -26,7 +26,12 @@ class AddingProductIntoCartController extends Controller {
             throw new BadRequestException("Id parameter is missing.");
         }
 
-        $this->cart->add($productId);
+        $size = $request->getParameter("size");
+        if ($size == null) {
+            throw new BadRequestException("Size parameter is missing.");
+        }
+
+        $this->cart->add($productId, $size);
         
         return (new ResponseBuilder())->withStatusCodeOK()->build();
     }

@@ -8,30 +8,40 @@
 	</head>
 	<?php 
 
-	   $product = $response->entity();
+	   $order = $response->entity();
 	   $categories = $response->supportingEntity("categories");
 
 	?>
 
-	<form action="<?php echo $response->serverContext(); ?>/administration/products/api/v1/product/<?php echo $product->id(); ?>" method="POST" enctype="multipart/form-data">
+	<form id="update-product-form" action="<?php echo $response->serverContext(); ?>/administration/products/api/v1/product/<?php echo $order->id(); ?>" method="POST" enctype="multipart/form-data">
 		<input type="hidden" name="_method" value="PUT" />
-		<input type="hidden" name="id" value="<?php echo $product->id(); ?>" />
-		<input type="text" name="name" value="<?php echo $product->name(); ?>" />
+		<input type="hidden" name="id" value="<?php echo $order->id(); ?>" />
+		<input type="text" name="name" value="<?php echo $order->name(); ?>" />
 		<select name="type">
-			<option value="male" <?php if ("male" === $product->type()) echo "selected"; ?>>Мъже</option>
-			<option value="female" <?php if ("female" === $product->type()) echo "selected"; ?>>Жени</option>
-			<option value="kids" <?php if ("kids" === $product->type()) echo "selected"; ?>>Деца</option>
+			<option value="male" <?php if ("male" === $order->type()) echo "selected"; ?>>Мъже</option>
+			<option value="female" <?php if ("female" === $order->type()) echo "selected"; ?>>Жени</option>
+			<option value="kids" <?php if ("kids" === $order->type()) echo "selected"; ?>>Деца</option>
 		</select>
 		<select name="category_id">
     	<?php 
     	   foreach ($categories as $category) {
     	?>
-    			<option value="<?php echo $category->id(); ?>" <?php if ($category->id() == $product->categoryId()) echo "selected"; ?>><?php echo $category->name(); ?></option>
+    			<option value="<?php echo $category->id(); ?>" <?php if ($category->id() == $order->categoryId()) echo "selected"; ?>><?php echo $category->name(); ?></option>
     	<?php
     		}
     	?>
 		</select>
-		<input type="number" step="0.01" name="price" value="<?php echo $product->price(); ?>" />
+		<textarea form="update-product-form" name="description" placeholder="Описание" value="<?php echo $order->description(); ?>"></textarea>
+		<input type="number" step="0.01" name="price" value="<?php echo $order->price(); ?>" />
+		<input type="number" step="0.01" value="0" name="promotional_price" value="<?php echo $order->promotionalPrice(); ?>" />
+		<select name="available_sizes[]" multiple="multiple">
+    		<option value="XS" <?php if ($order->hasSize("XS")) echo "selected"; ?>>XS</option>
+    		<option value="S" <?php if ($order->hasSize("S")) echo "selected"; ?>>S</option>
+    		<option value="M" <?php if ($order->hasSize("M")) echo "selected"; ?>>M</option>
+    		<option value="L" <?php if ($order->hasSize("L")) echo "selected"; ?>>L</option>
+    		<option value="XL" <?php if ($order->hasSize("XL")) echo "selected"; ?>>XL</option>
+    		<option value="XXL" <?php if ($order->hasSize("XXL")) echo "selected"; ?>>XXL</option>
+		</select>
 		<input class="images" type="file" name="productimage[]"><button class="more"><i class="fas fa-plus"></i></button>
 		<input type="submit" />
 	</form>

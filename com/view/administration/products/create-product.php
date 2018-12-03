@@ -12,7 +12,7 @@
 
 	?>
 
-	<form action="<?php echo $response->serverContext(); ?>/administration/products/api/v1" method="POST" enctype="multipart/form-data">
+	<form id="create-product-form" action="<?php echo $response->serverContext(); ?>/administration/products/api/v1" method="POST" enctype="multipart/form-data">
 		<input type="text" name="name" />
 		<select name="type">
 			<option value="male">Мъже</option>
@@ -28,7 +28,17 @@
     		}
     	?>
 		</select>
+		<textarea form="create-product-form" name="description" placeholder="Описание"></textarea>
 		<input type="number" step="0.01" name="price" />
+		<input type="number" step="0.01" value="0" name="promotional_price" />
+		<select name="available_sizes[]" multiple="multiple">
+			<option value="XS">XS</option>
+			<option value="S">S</option>
+			<option value="M">M</option>
+			<option value="L">L</option>
+			<option value="XL">XL</option>
+			<option value="XXL">XXL</option>
+		</select>
 		<input class="images" type="file" name="productimage[]"><button class="more"><i class="fas fa-plus"></i></button>
 		<input type="submit" />
 	</form>

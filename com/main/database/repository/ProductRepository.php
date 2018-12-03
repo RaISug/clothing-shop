@@ -120,9 +120,9 @@ class ProductRepository {
     public function persist(Product $product) {
         $connection = $this->connectionFactory->create();
 
-        $statement = $connection->prepare("INSERT INTO products (NAME, type, price, image_name, category_id) VALUES (?, ?, ?, ?, ?)");
+        $statement = $connection->prepare("INSERT INTO products (NAME, type, price, image_name, category_id, description, promotional_price, available_sizes) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
-        $statement->bind_param("ssdsi", $product->name(), $product->type(), $product->price(), $product->imageName(), $product->categoryId());
+        $statement->bind_param("ssdsisds", $product->name(), $product->type(), $product->price(), $product->imageName(), $product->categoryId(), $product->description(), $product->promotionalPrice(), $product->availableSizes());
 
         if ($statement->execute() === FALSE) {
             throw new InternalServerErrorException("Failed to create product");
@@ -132,9 +132,9 @@ class ProductRepository {
     public function update(Product $product) {
         $connection = $this->connectionFactory->create();
 
-        $statement = $connection->prepare("UPDATE products SET NAME = ?, type = ?, category_id = ?, price = ?, image_name = ? WHERE ID = ?");
+        $statement = $connection->prepare("UPDATE products SET NAME = ?, type = ?, category_id = ?, price = ?, image_name = ?, description = ?, promotional_price = ?, available_sizes = ? WHERE ID = ?");
 
-        $statement->bind_param("ssidsi", $product->name(), $product->type(), $product->categoryId(), $product->price(), $product->imageName(), $product->id());
+        $statement->bind_param("ssidssdsi", $product->name(), $product->type(), $product->categoryId(), $product->price(), $product->imageName(), $product->description(), $product->promotionalPrice(), $product->availableSizes(), $product->id());
 
         if ($statement->execute() === FALSE) {
             throw new InternalServerErrorException("Failed to update product");

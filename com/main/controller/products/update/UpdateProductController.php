@@ -9,6 +9,7 @@ use request\Request;
 use response\Response;
 use response\ResponseBuilder;
 use service\FileService;
+use constants\Constants;
 
 class UpdateProductController extends Controller {
 
@@ -28,8 +29,8 @@ class UpdateProductController extends Controller {
         $id = $request->getPathParameter("product");
         $product = $this->retrieveProductById($id);
 
-        $this->fileService->deleteFiles($product->imageNames());
-        $this->fileService->uploadFiles($request->getFiles("productimage"));
+        $this->fileService->deleteFilesFrom($product->imageNamesAsArray(), Constants::$PRODUCTS_UPLOAD_DIRECTORY);
+        $this->fileService->uploadFilesInto($request->getFiles("productimage"), Constants::$PRODUCTS_UPLOAD_DIRECTORY);
 
         $this->repository->update((new ProductFactory())->createProductFromRequest($request));
 

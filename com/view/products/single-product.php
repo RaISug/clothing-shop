@@ -22,15 +22,15 @@
             <?php
                 include_once 'com/view/header/header.php';
                 
-                $product = $response->entity();
+                $order = $response->entity();
                 
-                $images = $product->imageNames();
+                $images = $order->imageNamesAsArray();
             ?>
             	<div class="container" style="margin-top: 50px; margin-bottom: 50px;">
                 	<div class="product-details">
     					<div class="product-details-images">
     						<div class="product-details-main-image">
-    							<img class="productImage" src="<?php echo $response->serverContext(); ?>/../images/<?php echo $product->getFirstImageName(); ?>"/>
+    							<img class="productImage" src="<?php echo $response->serverContext(); ?>/../images/<?php echo $order->getFirstImageName(); ?>"/>
     						</div>
     						<?php 
     						  for ($i = 1 ; $i < count($images) ; $i++) {
@@ -70,7 +70,7 @@
     									<td></td>
     									<td>
     										<form action="<?php echo $response->serverContext(); ?>/cart/api/v1" method="POST">
-                                				<input type="hidden" name="id" value="<?php echo $product->id(); ?>">
+                                				<input type="hidden" name="id" value="<?php echo $order->id(); ?>">
                                 				<input class="addToCartButton" type="submit" value="Add to cart">
                             				</form>
     									</td>

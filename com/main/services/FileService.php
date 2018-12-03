@@ -2,42 +2,40 @@
 
 namespace service;
 
-use file\File;
 use exception\InternalServerErrorException;
+use file\File;
 use file\Files;
 
 class FileService {
 
-    private $UPLOAD_DIRECTORY = "/home/raisug/_D/git/com.radoslav.web.shop/images";
-
-    public function uploadFiles(Files $files) {
+    public function uploadFilesInto(Files $files, string $directory) {
         while ($files->hasMore()) {
             $file = $files->next();
 
-            $this->uploadFile($file);
+            $this->uploadFile($file, $directory);
         }
     }
 
-    public function uploadFile(File $file) {
-        $result = move_uploaded_file($file->getTemporalName(), $this->UPLOAD_DIRECTORY . "/" . $file->getUniqueName());
+    public function uploadFileInto(File $file, string $directory) {
+        $result = move_uploaded_file($file->getTemporalName(), $directory . "/" . $file->getUniqueName());
 
         if ($result === FALSE) {
             throw new InternalServerErrorException("Failed to upload file");
         }
     }
     
-    public function deleteFiles($filenames) {
+    public function deleteFilesFrom($filenames, string $directory) {
         foreach ($filenames as $filename) {
-            $this->deleteFile($filename);
+            $this->deleteFile($filename, $directory);
         }
     }
 
-    public function deleteFile($filename) {
+    private function deleteFileFrom($filename, string $directory) {
         if (strlen($filename) === 0) {
             return;
         }
 
-        $result = unlink($this->UPLOAD_DIRECTORY . "/" . $filename);
+        $result = unlink($directory . "/" . $filename);
         if ($result === FALSE) {
             throw new InternalServerErrorException("Failed to delete file: " . $filename);
         }

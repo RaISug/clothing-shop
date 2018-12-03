@@ -6,9 +6,11 @@ require_once 'com/main/dto/Pagination.php';
 
 require_once 'com/main/database/ConnectionFactory.php';
 
+require_once 'com/main/database/repository/OrderRepository.php';
 require_once 'com/main/database/repository/CategoryRepository.php';
 require_once 'com/main/database/repository/ProductRepository.php';
 require_once 'com/main/database/repository/UserRepository.php';
+require_once 'com/main/database/repository/CarouselRepository.php';
 
 require_once 'com/main/controller/Controller.php';
 require_once 'com/main/controller/SimpleController.php';
@@ -33,13 +35,28 @@ require_once 'com/main/controller/categories/ListCategoriesController.php';
 require_once 'com/main/controller/categories/DeleteCategoryController.php';
 require_once 'com/main/controller/categories/CreateCategoryController.php';
 
+require_once 'com/main/controller/carousel/CreateCarouselController.php';
+require_once 'com/main/controller/carousel/DeleteCarouselController.php';
+require_once 'com/main/controller/carousel/ListCarouselController.php';
+
+require_once 'com/main/controller/orders/CreateOrderController.php';
+require_once 'com/main/controller/orders/DeleteOrderController.php';
+require_once 'com/main/controller/orders/ListAllOrdersController.php';
+require_once 'com/main/controller/orders/ListOrdersBetweenDatetimeController.php';
+require_once 'com/main/controller/orders/ListOrdersInGivenDateController.php';
+require_once 'com/main/controller/orders/UpdateOrderStatusController.php';
+
+require_once 'com/main/entity/Order.php';
 require_once 'com/main/entity/Category.php';
 require_once 'com/main/entity/Product.php';
 require_once 'com/main/entity/User.php';
+require_once 'com/main/entity/Carousel.php';
 
+require_once 'com/main/entity/factory/OrderFactory.php';
 require_once 'com/main/entity/factory/CategoryFactory.php';
 require_once 'com/main/entity/factory/UserFactory.php';
 require_once 'com/main/entity/factory/ProductFactory.php';
+require_once 'com/main/entity/factory/CarouselFactory.php';
 
 require_once 'com/main/response/Response.php';
 require_once 'com/main/response/ResponseBuilder.php';
@@ -55,6 +72,8 @@ require_once 'com/main/filter/response/CategoriesRetrievalFilter.php';
 
 require_once 'com/main/session/SessionService.php';
 
+require_once 'com/main/constants/Constants.php';
+
 require_once 'com/main/files/File.php';
 require_once 'com/main/files/Files.php';
 
@@ -65,6 +84,7 @@ require_once 'com/main/exceptions/ResponseException.php';
 require_once 'com/main/exceptions/BadRequestException.php';
 require_once 'com/main/exceptions/UnauthorizedException.php';
 require_once 'com/main/exceptions/InternalServerErrorException.php';
+require_once 'com/main/exceptions/NotFoundException.php';
 
 require_once 'com/main/services/FileService.php';
 require_once 'com/main/services/OrderingService.php';
@@ -93,6 +113,15 @@ use controller\DeleteCategoryController;
 use controller\CreateCategoryController;
 use controller\ListCategoriesController;
 use filter\CategoriesRetrievalFilter;
+use controller\CreateCarouselController;
+use controller\DeleteCarouselController;
+use controller\ListCarouselController;
+use controller\CreateOrderController;
+use controller\DeleteOrderController;
+use controller\ListOrdersBetweenDatetimeController;
+use controller\ListOrdersInGivenDateController;
+use controller\ListAllOrdersController;
+use controller\UpdateOrderStatusController;
 
 $request = new Request();
 
@@ -118,6 +147,15 @@ $controllers = array(
     new ListCategoriesController(),
     new DeleteCategoryController(),
     new CreateCategoryController(),
+    new CreateCarouselController(),
+    new DeleteCarouselController(),
+    new ListCarouselController(),
+    new CreateOrderController(),
+    new DeleteOrderController(),
+    new UpdateOrderStatusController(),
+    new ListOrdersBetweenDatetimeController(),
+    new ListOrdersInGivenDateController(),
+    new ListAllOrdersController(),
     new SimpleController()
 );
 

@@ -3,6 +3,7 @@
 namespace request;
 
 use file\Files;
+use file\File;
 
 class Request {
 
@@ -39,6 +40,11 @@ class Request {
         return file_get_contents("php://input");
     }
 
+    public function getFile(string $name) {
+        var_dump($_FILES[$name]);
+        return new File($_FILES[$name]);
+    }
+
     public function getFiles(string $name) {
         return new Files($this->getFilesAsArray($name));
     }
@@ -62,6 +68,18 @@ class Request {
         }
 
         return $_GET[$name];
+    }
+
+    public function getMultiValueParameterAsStringDelimitedWithSemicolon(string $name) {
+        $result = "";
+
+        $values = $this->getParameter($name);
+        echo $values;
+        foreach ($values as $value) {
+            $result .= $value . ";";
+        }
+
+        return substr($result, 0, strlen($result) - 1);
     }
 
     public function isGETRequest() {

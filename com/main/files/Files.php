@@ -10,8 +10,6 @@ class Files {
     public function __construct($files) {
         $this->files = array();
 
-        echo count($files);
-        
         for ($i = 0 ; $i < count($files) ; $i++) {
             $this->files[] = new File($files[$i]);
         }

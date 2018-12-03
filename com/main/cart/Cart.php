@@ -15,29 +15,29 @@ class Cart {
         $this->sessionService->start();
     }
 
-    public function add($productId) {
-        if ($this->isProductAddedIntoCart($productId)) {
-            $this->incrementProductQuantity($productId);
+    public function add($productId, $size) {
+        if ($this->isProductAddedIntoCart($productId, $size)) {
+            $this->incrementProductQuantity($productId, $size);
         } else {
-            $this->addProductIntoCart($productId);
+            $this->addProductIntoCart($productId, $size);
         }
     }
 
-    private function incrementProductQuantity($productId) {
+    private function incrementProductQuantity($productId, $size) {
         $cartItems = $this->getCartItems();
 
         foreach ($cartItems as $cartItem) {
-            if ($cartItem->productId() === $productId) {
+            if ($cartItem->productId() === $productId && $cartItem->size() === $size) {
                 $cartItem->increaseQuantity();
             }
         }
     }
 
-    private function isProductAddedIntoCart($productId) {
+    private function isProductAddedIntoCart($productId, $size) {
         $cartItems = $this->getCartItems();
 
         foreach ($cartItems as $cartItem) {
-            if ($cartItem->productId() === $productId) {
+            if ($cartItem->productId() === $productId && $cartItem->size() === $size) {
                 return true;
             }
         }
@@ -54,18 +54,18 @@ class Cart {
         return $cartItems;
     }
 
-    private function addProductIntoCart($productId) {
+    private function addProductIntoCart($productId, $size) {
         $cartItems = $this->getCartItems();
-        $cartItems[] = new CartItem($productId);
+        $cartItems[] = new CartItem($productId, $size);
 
         $this->sessionService->setAttribute("cartItems", $cartItems);
     }
 
-    public function remove($productId) {
+    public function remove($productId, $size) {
         $cartItems = $this->getCartItems();
 
         foreach ($cartItems as $cartItem) {
-            if ($cartItem->productId() === $productId) {
+            if ($cartItem->productId() === $productId && $cartItem->size() === $size) {
                 $cartItem->decreaseQuantity();
             }
         }
@@ -73,6 +73,10 @@ class Cart {
 
     public function getAllProducts() {
         return $this->getCartItems();
+    }
+
+    public function clear() {
+        $this->sessionService->removeAttribute("cartItems");
     }
 
 }

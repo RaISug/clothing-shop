@@ -27,34 +27,10 @@
             	  	<?php
                 	  $pagination = $response->entity();
                 	  
-                	  foreach ($pagination->entities() as $product) {
-                	      $availableSizes = $product->availableSizesAsArray();
+                	  foreach ($pagination->entities() as $order) {
                 	      ?>
                 	      	<div class="product col-sm-3">
-                            		<a href="<?php echo $response->serverContext(); ?>/products/api/v1/product/<?php echo $product->id(); ?>">
-                            			<img src="<?php echo $response->serverContext(); ?>/../images/<?php echo $product->getFirstImageName(); ?>" alt="Smiley face" style="height: 250px; margin-top: 10px;">
-                        			</a>
-    								<br>
-                            		Name: <?php echo $product->name(); ?>
-    								<br>
-                            		Type: <?php echo $product->type(); ?>
-    								<br>                            		
-                            		Category: <?php echo $product->category(); ?>
-    								<br>                            		
-                            		Price: <?php echo $product->price(); ?>lv
-                            		<?php 
-                                		foreach ($availableSizes as $availableSize) {
-                            		?>
-                                    		<div style="margin-top: 10px;">
-                                    			<form action="<?php echo $response->serverContext(); ?>/cart/api/v1" method="POST">
-                                    				<input type="hidden" name="id" value="<?php echo $product->id(); ?>">
-                                    				<input type="hidden" name="size" value="<?php echo $availableSize; ?>">
-                                    				<input class="addToCartButton" type="submit" value="<?php echo $availableSize; ?>">
-                                    			</form>
-                                    		</div>
-                            		<?php
-                                		}
-                            		?>
+                	      		<?php echo $order->id(); ?>
                 	      	</div>
                 	      <?php 
                 	  }
