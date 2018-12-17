@@ -29,7 +29,7 @@ class DecreaseProductQuantityInCartController extends Controller {
     }
 
     public function display(Response $response) {
-        $response->redirectTo("/carts/api/v1");
+        $response->redirectTo("/carts/api/v1?decrement=succeed");
     }
 
 }

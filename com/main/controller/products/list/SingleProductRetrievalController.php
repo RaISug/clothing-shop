@@ -31,10 +31,10 @@ class SingleProductRetrievalController extends Controller {
         $dbResponse = $this->repository->byId($id);
 
         if ($dbResponse->num_rows == 0) {
-            return (new ResponseBuilder())->withStatusCodeOK()->build();
+            return (new ResponseBuilder())->withRequest($request)->withStatusCodeOK()->build();
         }
 
-        return (new ResponseBuilder())->withStatusCodeOK()->withEntity(new Product($dbResponse->fetch_assoc()))->build();
+        return (new ResponseBuilder())->withRequest($request)->withStatusCodeOK()->withEntity(new Product($dbResponse->fetch_assoc()))->build();
     }
 
     public function display(Response $response) {

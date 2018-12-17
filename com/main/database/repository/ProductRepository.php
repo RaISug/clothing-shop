@@ -138,9 +138,9 @@ class ProductRepository {
             $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id WHERE p.type = ? ORDER BY p." . $orderBy . " " . $orderingType . " LIMIT ?,?");
         }
 
-        $page *= $offset;
+        $startIndex = $page * $offset;
 
-        $statement->bind_param("sii", $type, $page, $offset);
+        $statement->bind_param("sii", $type, $startIndex, $offset);
 
         $statement->execute();
 
@@ -156,9 +156,9 @@ class ProductRepository {
             $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id WHERE c.name = ? ORDER BY p." . $orderBy . " " . $orderingType . " LIMIT ?,?");
         }
 
-        $page *= $offset;
+        $startIndex = $page * $offset;
 
-        $statement->bind_param("sii", $category, $page, $offset);
+        $statement->bind_param("sii", $category, $startIndex, $offset);
 
         $statement->execute();
 
@@ -174,9 +174,9 @@ class ProductRepository {
             $statement = $connection->prepare("SELECT p.* FROM products p JOIN products_to_collections_mapping pcm ON pcm.product_id = p.id JOIN collections c ON c.id = pcm.collection_id WHERE c.technical_name = ? ORDER BY p." . $orderBy . " " . $orderingType . " LIMIT ?,?");
         }
         
-        $page *= $offset;
+        $startIndex = $page * $offset;
         
-        $statement->bind_param("sii", $collection, $page, $offset);
+        $statement->bind_param("sii", $collection, $startIndex, $offset);
         
         $statement->execute();
         
@@ -192,9 +192,9 @@ class ProductRepository {
             $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id WHERE p.type = ? AND c.name = ? ORDER BY p." . $orderBy . " " . $orderingType . " LIMIT ?,?");
         }
 
-        $page *= $offset;
+        $startIndex = $page * $offset;
 
-        $statement->bind_param("ssii", $type, $category, $page, $offset);
+        $statement->bind_param("ssii", $type, $category, $startIndex, $offset);
 
         $statement->execute();
 

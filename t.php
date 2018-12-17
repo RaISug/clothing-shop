@@ -104,6 +104,8 @@ require_once 'com/main/exceptions/NotFoundException.php';
 require_once 'com/main/services/FileService.php';
 require_once 'com/main/services/OrderingService.php';
 require_once 'com/main/services/PaginationService.php';
+require_once 'com/main/services/EmailService.php';
+require_once 'com/main/services/RedirectionService.php';
 
 use request\Request as Request;
 use controller\ListProductsController;

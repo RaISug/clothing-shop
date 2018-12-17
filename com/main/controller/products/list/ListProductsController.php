@@ -43,7 +43,7 @@ class ListProductsController extends Controller {
         $dbResponse = $this->repository->all($page, $offset, $orderBy, $orderingType);
 
         if ($dbResponse->num_rows == 0) {
-            return (new ResponseBuilder())->withStatusCodeOK()->withEntity(new Pagination(array(), 0, 0, 50))->build();
+            return (new ResponseBuilder())->withRequest($request)->withStatusCodeOK()->withEntity(new Pagination(array(), 0, 0, 50))->build();
         }
 
         $entities = array();
@@ -55,6 +55,7 @@ class ListProductsController extends Controller {
         $total = $this->repository->count();
 
         return (new ResponseBuilder())
+                    ->withRequest($request)
                     ->withStatusCodeOK()
                     ->withEntity(new Pagination($entities, $total, $page + 1, $offset, $orderBy, $orderingType))
                     ->build();

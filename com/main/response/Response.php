@@ -2,6 +2,7 @@
 
 namespace response;
 
+
 class Response {
 
     private $statusCode;
@@ -9,13 +10,15 @@ class Response {
     private $supportingEntities;
     private $headers;
     private $contentType;
+    private $request;
 
-    public function __construct($statusCode, $entity, $supportingEntities, $headers, $contentType) {
+    public function __construct($statusCode, $entity, $supportingEntities, $headers, $contentType, $request) {
         $this->statusCode = $statusCode;
         $this->entity = $entity;
         $this->supportingEntities = $supportingEntities;
         $this->headers = $headers;
         $this->contentType = $contentType;
+        $this->request = $request;
     }
 
     public function entity() {
@@ -48,6 +51,10 @@ class Response {
 
     public function serverContext() {
         return "/com.radoslav.web.shop/t.php";
+    }
+
+    public function request() {
+        return $this->request;
     }
 
 }

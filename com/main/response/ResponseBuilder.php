@@ -2,6 +2,7 @@
 
 namespace response;
 
+
 class ResponseBuilder {
 
     private $headers;
@@ -9,6 +10,7 @@ class ResponseBuilder {
     private $entity;
     private $supportingEntities;
     private $contentType;
+    private $request;
 
     public function __construct() {
         $this->headers = array();
@@ -63,8 +65,14 @@ class ResponseBuilder {
         return $this;
     }
 
+    public function withRequest($request) {
+        $this->request = $request;
+
+        return $this;
+    }
+
     public function build() {
-        return new Response($this->statusCode, $this->entity, $this->supportingEntities, $this->headers, $this->contentType);
+        return new Response($this->statusCode, $this->entity, $this->supportingEntities, $this->headers, $this->contentType, $this->request);
     }
 
 }

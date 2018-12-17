@@ -34,6 +34,7 @@ class CarouselsRetrievalFilter implements ResponseFilter {
         }
 
         $response = (new ResponseBuilder())
+                            ->withRequest($response->request())
                             ->withEntity($response->entity())
                             ->withStatusCode($response->statusCode())
                             ->withSupportingEntities($response->supportingEntities())

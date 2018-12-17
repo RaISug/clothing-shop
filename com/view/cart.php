@@ -2,10 +2,35 @@
     
     include 'com/view/header.php';
 
+    $request = $response->request();
 	$products = $response->entity();
+
 	if (count($products) !== 0) {
         ?>
+        
     	<div class="container cart" style="margin-top: 30px; padding: 30px; background-color: white; border: 1px solid #d1d1d1;">
+    	    <?php
+    	    if ($request->getQueryParameter("insert") === "succeed") {
+            ?>
+            	<div id="success-alert" class="alert alert-success" role="alert">
+                	Продукта беше успешно добавен към вашата кошница.
+                </div>
+            <?php
+    	    } else if ($request->getQueryParameter("remove") === "succeed") {
+            ?>
+            	<div id="success-alert" class="alert alert-success" role="alert">
+                	Продукта беше успешно премахнат от вашата кошница.
+                </div>
+            <?php
+    	    } else if ($request->getQueryParameter("decrement") === "succeed") {
+            ?>
+            	<div id="success-alert" class="alert alert-success" role="alert">
+                	Бройката на продукта беше успешно намалена.
+                </div>
+            <?php
+    	    }
+    	    ?>
+    	    
     		<table>
     			<tr>
     				<th>Продукт</th>
@@ -122,6 +147,22 @@
 	} else {
 	    ?>
 		<div class="container" style="margin-top: 100px" >
+			<?php
+    	    if ($request->getQueryParameter("remove") === "succeed") {
+            ?>
+            	<div id="success-alert" class="alert alert-success" role="alert">
+                	Продукта беше успешно премахнат от вашата кошница.
+                </div>
+            <?php
+    	    } else if ($request->getQueryParameter("decrement") === "succeed") {
+            ?>
+            	<div id="success-alert" class="alert alert-success" role="alert">
+                	Бройката на продукта беше успешно намалена.
+                </div>
+            <?php
+    	    }
+    	    ?>
+    	    
     	    <div class="alert alert-primary" role="alert">
             	Няма добавени продукти в количката!
             </div>

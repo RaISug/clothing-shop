@@ -76,7 +76,7 @@ class Pagination {
         if ($this->orderBy !== null) {
             $path .= "&orderBy=" . $this->orderBy . "&orderingType=" . $this->orderingType;
         }
-        
+ 
         return $path;
     }
 

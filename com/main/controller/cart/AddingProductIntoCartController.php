@@ -7,13 +7,16 @@ use response\Response;
 use cart\Cart as Cart;
 use response\ResponseBuilder as ResponseBuilder;
 use exception\BadRequestException as BadRequestException;
+use service\RedirectionService;
 
 class AddingProductIntoCartController extends Controller {
 
     private $cart;
+    private $redirectionService;
 
     public function __construct() {
         $this->cart = new Cart();
+        $this->redirectionService = new RedirectionService();
     }
 
     public function canHandle(Request $request) {
@@ -37,7 +40,7 @@ class AddingProductIntoCartController extends Controller {
     }
 
     public function display(Response $response) {
-        $response->redirectTo("/carts/api/v1");
+        $response->redirectTo($this->redirectionService->constructRedirectionPath());
     }
 
 }

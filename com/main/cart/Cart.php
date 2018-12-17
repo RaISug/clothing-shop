@@ -2,9 +2,7 @@
 
 namespace cart;
 
-use cart\CartItem as CartItem;
-use session\SessionService as SessionService;
-use repository\ProductRepository;
+use session\SessionService;
 
 class Cart {
 

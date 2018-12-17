@@ -8,6 +8,16 @@
         
     	<div class="container">
           
+          	<?php 
+          	    $request = $response->request();
+          	    if ($request->getQueryParameter("insert") === "succeed") {
+          	        ?>
+          	        	<div id="success-alert" class="alert alert-success" role="alert">
+                        	Продукта беше успешно добавен към вашата кошница.
+                        </div>
+          	        <?php
+          	    }
+          	?>
       		<div class="row">
 				<?php 
 				$pagination = $response->entity();

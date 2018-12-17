@@ -38,7 +38,7 @@ class ListProductsByTypeController extends Controller {
         $dbResponse = $this->repository->byType($type, $page, $offset, $orderBy, $orderingType);
 
         if ($dbResponse->num_rows == 0) {
-            return (new ResponseBuilder())->withStatusCodeOK()->withEntity(new Pagination(array(), 0, 0, 50, $orderBy, $orderingType))->build();
+            return (new ResponseBuilder())->withRequest($request)->withStatusCodeOK()->withEntity(new Pagination(array(), 0, 0, 50, $orderBy, $orderingType))->build();
         }
 
         $entities = array();
@@ -50,6 +50,7 @@ class ListProductsByTypeController extends Controller {
         $total = $this->repository->countOfItemsInType($type);
 
         return (new ResponseBuilder())
+                        ->withRequest($request)
                         ->withStatusCodeOK()
                         ->withEntity(new Pagination($entities, $total, $page + 1, $offset, $orderBy, $orderingType))
                         ->build();

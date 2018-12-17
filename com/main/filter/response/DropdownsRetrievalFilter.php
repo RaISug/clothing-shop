@@ -25,6 +25,7 @@ class DropdownsRetrievalFilter implements ResponseFilter {
         $womenCategories = $this->retrieveWomenCategories();
 
         $response = (new ResponseBuilder())
+                            ->withRequest($response->request())
                             ->withEntity($response->entity())
                             ->withStatusCode($response->statusCode())
                             ->withSupportingEntities($response->supportingEntities())

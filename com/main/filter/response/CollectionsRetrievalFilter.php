@@ -36,7 +36,9 @@ class CollectionsRetrievalFilter implements ResponseFilter {
         }
 
         $response = (new ResponseBuilder())
+                            ->withRequest($response->request())
                             ->withEntity($response->entity())
+                            ->withRequest($response->request())
                             ->withStatusCode($response->statusCode())
                             ->withSupportingEntities($response->supportingEntities())
                             ->withSupportingEntity("collections", $entities)

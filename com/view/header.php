@@ -133,7 +133,7 @@
         			<ul class="navbar-nav justify-content-end">
         				<li class="nav-item">
                           	<a class="nav-link" href="<?php echo $response->serverContext(); ?>/carts/api/v1">
-                             	 Количка
+                             	 Кошница
                           	</a>
             			</li>
         			</ul>

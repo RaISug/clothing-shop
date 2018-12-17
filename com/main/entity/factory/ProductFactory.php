@@ -10,7 +10,7 @@ class ProductFactory {
     public function createProductFromRequest(Request $request) {
         $data = array(
             'ID' => $request->getParameter("id"),
-            'NAME' => $request->getParameter("name"),
+            'name' => $request->getParameter("name"),
             'type' => $request->getParameter("type"),
             'category_id' => $request->getParameter("category_id"),
             'price' => $request->getParameter("price"),

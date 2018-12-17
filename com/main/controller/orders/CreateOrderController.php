@@ -53,7 +53,7 @@ class CreateOrderController extends Controller {
 
 //         $this->emailService->sendEmail($order);
 
-        return (new ResponseBuilder())->withStatusCode(201)->build();
+        return (new ResponseBuilder())->withRequest($request)->withStatusCodeOK()->build();
     }
 
     private function getOrderedProducts() {

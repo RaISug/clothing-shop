@@ -2,7 +2,9 @@
 
     include_once 'header.php';
 
-    if ($response->statusCode() === 201) {
+    $request = $response->request();
+
+    if ($request->getQueryParameter("order") === "succeed") {
         ?>
         <div class="container" style="margin-top: 100px" >
             <div class="alert alert-success" role="alert">

@@ -3,11 +3,22 @@
     include_once 'header.php';
     
     $product = $response->entity();
+    $request = $response->request();
     
     $images = $product->imageNamesAsArray();
 
 ?>
 	<div class="container" style="margin-top: 30px; padding: 30px; background-color: white; border: 1px solid #d1d1d1;">
+  		<?php
+  		if ($request->getQueryParameter("insert") === "succeed") {
+  	        ?>
+  	        	<div id="success-alert" class="alert alert-success" role="alert">
+                	Продукта беше успешно добавен към вашата кошница.
+                </div>
+  	        <?php
+  	    }
+        ?>
+        
     	<div class="product-details">
 			<div class="product-details-images">
 				

@@ -33,13 +33,13 @@ class ShowAllProductsInCartController extends Controller {
         }
 
         if (count($productIds) == 0) {
-            return (new ResponseBuilder())->withStatusCodeOK()->withEntity(array())->build();
+            return (new ResponseBuilder())->withRequest($request)->withStatusCodeOK()->withEntity(array())->build();
         }
 
         $dbResponse = $this->repository->byIds($productIds);
         
         if ($dbResponse->num_rows == 0) {
-            return (new ResponseBuilder())->withStatusCodeOK()->withEntity(array())->build();
+            return (new ResponseBuilder())->withRequest($request)->withStatusCodeOK()->withEntity(array())->build();
         }
 
         $entities = array();
@@ -54,6 +54,7 @@ class ShowAllProductsInCartController extends Controller {
         }
 
         return (new ResponseBuilder())
+                        ->withRequest($request)
                         ->withStatusCodeOK()
                         ->withEntity($entities)
                         ->build();
