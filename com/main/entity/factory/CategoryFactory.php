@@ -9,7 +9,8 @@ class CategoryFactory {
     
     public function createCategoryFromRequest(Request $request) {
         $data = array(
-            'name' => $request->getParameter("name")
+            'name' => $request->getParameter("name"),
+            'display_name' => $request->getParameter("display_name")
         );
         
         return new Category($data);

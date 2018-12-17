@@ -21,6 +21,12 @@ class ResponseBuilder {
         return $this;
     }
 
+    public function withSupportingEntities($supportingEntities) {
+        $this->supportingEntities = $supportingEntities;
+
+        return $this;
+    }
+
     public function withSupportingEntity(string $key, $entity) {
         $this->supportingEntities[$key] = $entity;
 

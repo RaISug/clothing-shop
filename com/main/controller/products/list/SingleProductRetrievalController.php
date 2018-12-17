@@ -41,7 +41,7 @@ class SingleProductRetrievalController extends Controller {
         if ($this->isAdministrationPath()) {
             include "com/view/administration/products/update-product.php";
         } else {
-            include "com/view/products/single-product.php";
+            include "com/view/product.php";
         }
     }
 

@@ -24,7 +24,19 @@ class OrderRepository {
             throw new InternalServerErrorException("Failed to create order");
         }
     }
-    
+
+    public function byId(int $id) {
+        $connection = $this->connectionFactory->create();
+        
+        $statement = $connection->prepare("SELECT * FROM orders WHERE id = ?");
+        
+        $statement->bind_param("i", $id);
+
+        $statement->execute();
+
+        return $statement->get_result();
+    }
+
     public function all(int &$page, int &$offset, $orderBy, $orderingType) {
         $connection = $this->connectionFactory->create();
         

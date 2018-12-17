@@ -8,10 +8,10 @@ class CartItem {
     private $size;
     private $quantity;
 
-    public function __construct($productId, $size) {
+    public function __construct($productId, $size, $quantity = 1) {
         $this->productId = $productId;
         $this->size = $size;
-        $this->quantity = 1;
+        $this->quantity = $quantity;
     }
 
     public function productId() {
@@ -32,6 +32,14 @@ class CartItem {
 
     public function decreaseQuantity() {
         $this->quantity--;
+    }
+
+    public function asArray() {
+        return array(
+            "productId" => $this->productId,
+            "size" => $this->size,
+            "quantity" => $this->quantity
+        );
     }
 
 }

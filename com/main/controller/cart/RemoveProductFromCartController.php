@@ -7,7 +7,7 @@ use request\Request;
 use response\ResponseBuilder;
 use response\Response;
 
-class RemovingProductFromCartController extends Controller {
+class RemoveProductFromCartController extends Controller {
 
     private $cart;
 
@@ -16,7 +16,7 @@ class RemovingProductFromCartController extends Controller {
     }
 
     public function canHandle(Request $request) {
-        return $request->isDELETERequest() && preg_match("/\/cart\/api\/v1\/cart\/[0-9]+\/size\/(\w)+$/", $request->getPath()) == 1;
+        return $request->isDELETERequest() && preg_match("/\/carts\/api\/v1\/cart\/[0-9]+\/size\/(\w)+$/", $request->getPath()) == 1;
     }
 
     public function handle(Request $request) {
@@ -29,7 +29,7 @@ class RemovingProductFromCartController extends Controller {
     }
 
     public function display(Response $response) {
-        $response->redirectTo("/cart/api/v1");
+        $response->redirectTo("/carts/api/v1");
     }
 
 }

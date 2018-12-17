@@ -50,6 +50,42 @@ class ProductRepository {
 
         return $statement->get_result()->fetch_assoc()['products_count'];
     }
+    
+    public function countOfItemsInType(string $type) {
+        $connection = $this->connectionFactory->create();
+        
+        $statement = $connection->prepare("SELECT COUNT(*) as products_count FROM products WHERE type = ?");
+        
+        $statement->bind_param("s", $type);
+        
+        $statement->execute();
+        
+        return $statement->get_result()->fetch_assoc()['products_count'];
+    }
+
+    public function countOfItemsInCollection(string $collection) {
+        $connection = $this->connectionFactory->create();
+        
+        $statement = $connection->prepare("SELECT COUNT(*) as products_count FROM products p JOIN products_to_collections_mapping pcm ON pcm.product_id = p.id JOIN collections c ON c.id = pcm.collection_id WHERE c.technical_name = ?");
+        
+        $statement->bind_param("s", $collection);
+        
+        $statement->execute();
+        
+        return $statement->get_result()->fetch_assoc()['products_count'];
+    }
+
+    public function countOfItemsForTypeInCategory(string $type, string $category) {
+        $connection = $this->connectionFactory->create();
+        
+        $statement = $connection->prepare("SELECT COUNT(*) as products_count FROM products p JOIN categories c ON p.category_id = c.id WHERE p.type = ? AND c.name = ?");
+        
+        $statement->bind_param("ss", $type, $category);
+        
+        $statement->execute();
+        
+        return $statement->get_result()->fetch_assoc()['products_count'];
+    }
 
     public function byId(int $id) {
         $connection = $this->connectionFactory->create();
@@ -61,6 +97,36 @@ class ProductRepository {
         $statement->execute();
 
         return $statement->get_result();
+    }
+
+    public function byIds($ids) {
+        $connection = $this->connectionFactory->create();
+
+        $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id WHERE p.ID IN (" . $this->constructInClause($ids) . ")");
+
+        $this->bindIdsToStatement($ids, $statement);
+
+        $statement->execute();
+        
+        return $statement->get_result();
+    }
+
+    private function constructInClause($ids) {
+        return implode(',', array_fill(0, count($ids), '?'));
+    }
+
+    private function bindIdsToStatement($ids, $statement) {
+        $parameterTypes = '';
+        $parameters = array();
+        
+        for ($i = 0 ; $i < count($ids) ; $i++) {
+            $parameterTypes .= 'i';
+            $parameters[$i] = &$ids[$i];
+        }
+
+        array_unshift($parameters, $parameterTypes);
+
+        call_user_func_array([$statement, 'bind_param'], $parameters);
     }
 
     public function byType(string $type, int &$page, int &$offset, $orderBy, $orderingType) {
@@ -96,6 +162,24 @@ class ProductRepository {
 
         $statement->execute();
 
+        return $statement->get_result();
+    }
+
+    public function byCollection(string $collection, int &$page, int &$offset, $orderBy, $orderingType) {
+        $connection = $this->connectionFactory->create();
+        
+        if ($orderBy === null) {
+            $statement = $connection->prepare("SELECT p.* FROM products p JOIN products_to_collections_mapping pcm ON pcm.product_id = p.id JOIN collections c ON c.id = pcm.collection_id WHERE c.technical_name = ? LIMIT ?,?");
+        } else {
+            $statement = $connection->prepare("SELECT p.* FROM products p JOIN products_to_collections_mapping pcm ON pcm.product_id = p.id JOIN collections c ON c.id = pcm.collection_id WHERE c.technical_name = ? ORDER BY p." . $orderBy . " " . $orderingType . " LIMIT ?,?");
+        }
+        
+        $page *= $offset;
+        
+        $statement->bind_param("sii", $collection, $page, $offset);
+        
+        $statement->execute();
+        
         return $statement->get_result();
     }
 

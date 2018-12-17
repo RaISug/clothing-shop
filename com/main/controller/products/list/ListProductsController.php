@@ -26,7 +26,10 @@ class ListProductsController extends Controller {
     }
 
     public function canHandle(Request $request) {
-        return $request->isGETRequest() && ($request->getPath() === "/products/api/v1" || $request->getPath() === "/administration/products/api/v1");
+        return $request->isGETRequest() && 
+                    ($request->getPath() === "/products/api/v1" 
+                        || $request->getPath() === "/administration/products/api/v1"
+                            || $request->getPath() === "/administration/collections/add/products");
     }
 
     public function handle(Request $request) {
@@ -58,15 +61,13 @@ class ListProductsController extends Controller {
     }
 
     public function display(Response $response) {
-        if ($this->isAdministrationPath()) {
+        if ($this->requestPath === "/administration/products/api/v1") {
             include "com/view/administration/products/manage-products.php";
+        } else if ($this->requestPath === "/administration/collections/add/products") { 
+            include "com/view/administration/collections/add-products-to-collection.php";
         } else {
-            include "com/view/products/all-products.php";
+            include "com/view/products.php";
         }
-    }
-
-    private function isAdministrationPath() {
-        return strpos($this->requestPath, "/administration") === 0;
     }
 
 }

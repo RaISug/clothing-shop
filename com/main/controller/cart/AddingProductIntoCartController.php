@@ -17,7 +17,7 @@ class AddingProductIntoCartController extends Controller {
     }
 
     public function canHandle(Request $request) {
-        return $request->isPOSTRequest() && $request->getPath() === "/cart/api/v1";
+        return $request->isPOSTRequest() && $request->getPath() === "/carts/api/v1";
     }
 
     public function handle(Request $request) {
@@ -37,7 +37,7 @@ class AddingProductIntoCartController extends Controller {
     }
 
     public function display(Response $response) {
-        $response->redirectTo("/cart/api/v1");
+        $response->redirectTo("/carts/api/v1");
     }
 
 }

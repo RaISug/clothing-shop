@@ -1,13 +1,5 @@
 <?php 
 
-namespace t;
-
-class Test {
- 
-    function test() {
-        return "<br>Test<br>";
-    }
-
-}
+require_once 'com/view/administration/header.php';
 
 ?>

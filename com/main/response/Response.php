@@ -22,6 +22,10 @@ class Response {
         return $this->entity;
     }
 
+    public function supportingEntities() {
+        return $this->supportingEntities;
+    }
+
     public function supportingEntity(string $key) {
         return $this->supportingEntities[$key];
     }

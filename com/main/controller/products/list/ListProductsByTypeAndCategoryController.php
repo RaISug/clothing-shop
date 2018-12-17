@@ -9,6 +9,7 @@ use response\Response;
 use response\ResponseBuilder;
 use service\PaginationService;
 use service\OrderingService;
+use dto\Pagination;
 
 class ListProductsByTypeAndCategoryController extends Controller {
 
@@ -38,7 +39,7 @@ class ListProductsByTypeAndCategoryController extends Controller {
         $dbResponse = $this->repository->byTypeAndCategory($type, $category, $page, $offset, $orderBy, $orderingType);
 
         if ($dbResponse->num_rows == 0) {
-            return (new ResponseBuilder())->withStatusCodeOK()->withEntity(array())->build();
+            return (new ResponseBuilder())->withStatusCodeOK()->withEntity(new Pagination(array(), 0, 0, 50, $orderBy, $orderingType))->build();
         }
 
         $entities = array();
@@ -47,11 +48,16 @@ class ListProductsByTypeAndCategoryController extends Controller {
             $entities[] = new Product($row);
         }
 
-        return (new ResponseBuilder())->withStatusCodeOK()->withEntity($entities)->build();
+        $total = $this->repository->countOfItemsForTypeInCategory($type, $category);
+
+        return (new ResponseBuilder())
+                        ->withStatusCodeOK()
+                        ->withEntity(new Pagination($entities, $total, $page + 1, $offset, $orderBy, $orderingType))
+                        ->build();
     }
 
     public function display(Response $response) {
-        include "com/view/products/all-products.php";
+        include "com/view/products.php";
     }
     
 }

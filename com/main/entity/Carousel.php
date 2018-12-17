@@ -22,6 +22,10 @@ class Carousel {
         return $this->imageName;
     }
 
+    public function setImageName($imageName) {
+        $this->imageName = $imageName;
+    }
+
     public function description() {
         return $this->description;
     }

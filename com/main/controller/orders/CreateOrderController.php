@@ -8,17 +8,26 @@ use repository\OrderRepository;
 use request\Request;
 use response\Response;
 use response\ResponseBuilder;
+use service\EmailService;
+use entity\Product;
+use entity\ProductInCart;
+use exception\BadRequestException;
+use repository\ProductRepository;
 
 class CreateOrderController extends Controller {
 
     private $cart;
     private $factory;
     private $repository;
-    
+    private $productRepository;
+    private $emailService;
+
     public function __construct() {
         $this->cart = new Cart();
         $this->factory = new OrderFactory();
         $this->repository = new OrderRepository();
+        $this->productRepository = new ProductRepository();
+//         $this->emailService = new EmailService();
     }
 
     public function canHandle(Request $request) {
@@ -26,7 +35,12 @@ class CreateOrderController extends Controller {
     }
 
     public function handle(Request $request) {
-        $elements = $this->cart->getAllProducts();
+        $elements = $this->getOrderedProducts();
+        if (count($elements) == 0) {
+            throw new BadRequestException("There are no products in the cart.");
+        }
+
+        $elements = $this->convertEveryElementToArray($elements);
 
         $order = $this->factory->createOrderFromRequest($request);
 
@@ -37,11 +51,55 @@ class CreateOrderController extends Controller {
 
         $this->cart->clear();
 
-        return (new ResponseBuilder())->withStatusCodeOK()->build();
+//         $this->emailService->sendEmail($order);
+
+        return (new ResponseBuilder())->withStatusCode(201)->build();
+    }
+
+    private function getOrderedProducts() {
+        $productIds = array();
+        
+        $cartItems = $this->cart->getCartItems();
+        foreach ($cartItems as $cartItem) {
+            $productIds[] = $cartItem->productId();
+        }
+
+        if (count($productIds) == 0) {
+            return array();
+        }
+
+        $dbResponse = $this->productRepository->byIds($productIds);
+        
+        if ($dbResponse->num_rows == 0) {
+            return array();
+        }
+
+        $entities = array();
+
+        while ($row = $dbResponse->fetch_assocпоръчка()) {
+            $product = new Product($row);
+            foreach ($cartItems as $cartItem) {
+                if ($cartItem->productId() == $product->id()) {
+                    $entities[] = new ProductInCart($product, $cartItem);
+                }
+            }
+        }
+
+        return $entities;
+    }
+
+    private function convertEveryElementToArray($elements) {
+        $convertedElements = array();
+
+        foreach ($elements as $element) {
+            $convertedElements[] = $element->asArray();
+        }
+
+        return $convertedElements;
     }
 
     public function display(Response $response) {
-        $response->redirectTo("/order/submitted");
+        $response->redirectTo("/orders/api/v1?order=succeed");
     }
 
 }

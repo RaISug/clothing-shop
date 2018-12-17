@@ -1,93 +1,144 @@
-<DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 
-	<style>
-	
-	   #header-link {
-	       text-decoration: none;
+  	<head>
 
-	       color: none;
-	   }
-       
-       #header-link:hover {
-           text-decoration: underline;
-       }
+        <meta charset="utf-8">
+    
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+        <meta name="description" content="">
+        <meta name="author" content="">
+    
+        <link rel="icon" href="../../../../favicon.ico">
+    
+        <link href="http://localhost/com.radoslav.web.shop/com/external/libraries/ui/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="http://localhost/com.radoslav.web.shop/com/external/libraries/ui/font-awesome/all.min.css" rel="stylesheet">
+        <link href="http://localhost/com.radoslav.web.shop/com/view/administration/carousel.css" rel="stylesheet">
+    	<link rel="stylesheet" href="http://localhost/com.radoslav.web.shop/com/view/home/home.css" />
+    	<link rel="stylesheet" href="http://localhost/com.radoslav.web.shop/com/view/products.css" />
+    	<link rel="stylesheet" href="http://localhost/com.radoslav.web.shop/com/view/cart.css" />
+    	<link rel="stylesheet" href="http://localhost/com.radoslav.web.shop/com/view/product.css" />
+    
+  	</head>
 
-	   #header-link:hover + .dropdown {
-	       display: block;
-	   }
-	   
-	   .dropdown {
-	       display: none;
+<?php 
 
-           position:fixed;
+    $menCategories = $response->supportingEntity("menCategories");
+    $womenCategories = $response->supportingEntity("womenCategories");
+    $collections = $response->supportingEntity("collections");
 
-           background-color: white;
+?>
 
-           margin: -1px;
+	<body>
 
-           border: 1px solid black;
-	   }
+    	<header>
 
-       .dropdown:hover {
-	       display: block;
-	   }
-	
-	   #header-link-2:hover + .dropdown-2 {
-	       display: block;
-	   }
-	   
-	   .dropdown-2 {
-	       display: none;
+      		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 
-           position:fixed;
+        		<a class="navbar-brand" href="<?php echo $response->serverContext(); ?>">Лого</a>
 
-           background-color: white;
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                  	<span class="navbar-toggler-icon"></span>
+                </button>
 
-           margin: -1px;
-           padding: 5px;
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+              		<ul class="navbar-nav mr-auto">
+              			<?php 
+              			if (count($menCategories) != 0) {
+              			    ?>
+              			    
+                            <li class="nav-item dropdown">
+                              	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                 	 Мъже
+                              	</a>
 
-           border: 1px solid black;
-	   }
+                				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                  	<?php 
+                                  	foreach ($menCategories as $menCategorie) {
+                                  	    ?>
+                                  	    
+                                          <a class="dropdown-item" href="<?php echo $response->serverContext(); ?>/products/api/v1/type/male/category/<?php echo $menCategorie->name(); ?>"><?php echo $menCategorie->displayName(); ?></a>
+                                  	    
+                                  	    <?php
+                                  	}
+                                  	?>
+                              		<a class="dropdown-item" href="<?php echo $response->serverContext(); ?>/products/api/v1/type/male">Всички</a>
+                                </div>
+                			</li>
+              			    
+              			    
+              			    <?php
+              			}
+              			?>
 
-       .fivePixelPadding {
-           padding: 5px;
-       }
+						<?php 
+						if (count($womenCategories) != 0) {
+						   ?>
+						   
+						   <li class="nav-item dropdown">
+                              	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                 	 Жени
+                              	</a>
+                				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	                              	<?php 
+	                              	foreach ($womenCategories as $womenCategorie) {
+                                  	    ?>
+                                  	    
+                                          <a class="dropdown-item" href="<?php echo $response->serverContext(); ?>/products/api/v1/type/female/category/<?php echo $womenCategorie->name(); ?>"><?php echo $womenCategorie->displayName(); ?></a>
+                                  	    
+                                  	    <?php
+                                  	}
+                                  	?>
+                					
+                                  <a class="dropdown-item" href="<?php echo $response->serverContext(); ?>/products/api/v1/type/female">Всички</a>
 
-       .fillParentWidth {
-           min-width: 100%;
-       }
+                                </div>
+                			</li>
+						   
+						   <?php 
+						}
+						?>
+        				
+        				<?php 
+        				if (count($collections) != 0) {
+        				    ?>
+        				    
+            				<li class="nav-item dropdown">
+                              	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                 	 Колекции
+                              	</a>
+                              	
+                				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-       .linkWithoutIndent {
-           padding: 0;
-       }
+                                  	<?php 
+                                  	foreach ($collections as $collection) {
+                                        ?>
+    
+                                              <a class="dropdown-item" href="<?php echo $response->serverContext(); ?>/products/api/v1/collection/<?php echo $collection->technicalName(); ?>"><?php echo $collection->titleName(); ?></a>
+                                  	     
+    									<?php   
+                                  	}
+                                  	?>
 
-       .linkWithoutBullets {
-           list-style-type: none;
-       }
-	</style>
-	
-	<div>
-		<a id="header-link" href="#">Test link</a>
-		<div class="dropdown">
-			<ul class="linkWithoutIndent linkWithoutBullets fullParentWidth">
-				<li><a class="fivePixelPadding" href="#">Sub Link 1</a></li>
-				<li><a class="fivePixelPadding" href="#">Sub Link 2</a></li>
-				<li><a class="fivePixelPadding" href="#">Sub Link 3</a></li>
-			</ul>
-		</div>
-		<a id="header-link-2" href="#">Test link</a>
-		<div class="dropdown-2">
-			rabotitiiii!!!!
-		</div>
-	</div>
-	
-	<script>
-		(function() {
-			var link = document.getElementById("header-link-2");
+                                </div>
+                			</li>
 
-			var distanceFromLeftBorder = link.getBoundingClientRect().left;
+        				    <?php
+        				}
+        				?>
 
-			document.getElementsByClassName("dropdown-2")[0].style['left'] = distanceFromLeftBorder;
-		})();
-	</script>
+                  	</ul>
+        
+        			<ul class="navbar-nav justify-content-end">
+        				<li class="nav-item">
+                          	<a class="nav-link" href="<?php echo $response->serverContext(); ?>/carts/api/v1">
+                             	 Количка
+                          	</a>
+            			</li>
+        			</ul>
+            	</div>
+			</nav>
+		</header>
+
+    <main role="main">

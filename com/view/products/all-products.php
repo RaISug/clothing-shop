@@ -26,7 +26,7 @@
     	  		<div class="row">
             	  	<?php
                 	  $pagination = $response->entity();
-                	  
+
                 	  foreach ($pagination->entities() as $product) {
                 	      $availableSizes = $product->availableSizesAsArray();
                 	      ?>

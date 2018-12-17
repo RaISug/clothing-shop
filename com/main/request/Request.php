@@ -41,7 +41,6 @@ class Request {
     }
 
     public function getFile(string $name) {
-        var_dump($_FILES[$name]);
         return new File($_FILES[$name]);
     }
 

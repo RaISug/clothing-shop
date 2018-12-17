@@ -56,7 +56,7 @@ class ListProductsByCategoryController extends Controller {
     }
     
     public function display(Response $response) {
-        include "com/view/products/all-products.php";
+        include "com/view/products.php";
     }
     
 }

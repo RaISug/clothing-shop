@@ -4,6 +4,7 @@ namespace cart;
 
 use cart\CartItem as CartItem;
 use session\SessionService as SessionService;
+use repository\ProductRepository;
 
 class Cart {
 
@@ -45,7 +46,7 @@ class Cart {
         return false;
     }
 
-    private function getCartItems() {
+    public function getCartItems() {
         $cartItems = $this->sessionService->getAttribute("cartItems");
         if ($cartItems == null) {
             return array();
@@ -60,19 +61,33 @@ class Cart {
 
         $this->sessionService->setAttribute("cartItems", $cartItems);
     }
-
+    
     public function remove($productId, $size) {
         $cartItems = $this->getCartItems();
-
-        foreach ($cartItems as $cartItem) {
+        
+        foreach ($cartItems as $cartItemKey => $cartItem) {
             if ($cartItem->productId() === $productId && $cartItem->size() === $size) {
-                $cartItem->decreaseQuantity();
+                unset($cartItems[$cartItemKey]);
+                    
+                $this->sessionService->setAttribute("cartItems", $cartItems);
             }
         }
     }
 
-    public function getAllProducts() {
-        return $this->getCartItems();
+    public function decreaseQuantity($productId, $size) {
+        $cartItems = $this->getCartItems();
+
+        foreach ($cartItems as $cartItemKey => $cartItem) {
+            if ($cartItem->productId() === $productId && $cartItem->size() === $size) {
+                $cartItem->decreaseQuantity();
+
+                if ($cartItem->quantity() == 0) {
+                    unset($cartItems[$cartItemKey]);
+
+                    $this->sessionService->setAttribute("cartItems", $cartItems);
+                }
+            }
+        }
     }
 
     public function clear() {

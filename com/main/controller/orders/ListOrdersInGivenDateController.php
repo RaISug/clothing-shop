@@ -65,7 +65,7 @@ class ListOrdersInGivenDateController extends Controller {
     }
     
     public function display(Response $response) {
-        include 'com/view/orders/all-orders.php';
+        include 'com/view/administration/orders/all-orders.php';
     }
     
 }

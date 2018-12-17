@@ -2,6 +2,8 @@
 
 namespace entity;
 
+use cart\CartItem;
+
 class Order {
 
     private $id;
@@ -74,6 +76,17 @@ class Order {
 
     public function orderDate() {
         return $this->orderDate;
+    }
+
+    public function products() {
+        $products = array();
+
+        $elements = json_decode($this->elements, true);
+        foreach ($elements as $element) {
+            $products[] = new ProductInCart(new Product($element), new CartItem($element['productId'], $element['size'], $element['quantity']));
+        }
+        
+        return $products;
     }
 
 }

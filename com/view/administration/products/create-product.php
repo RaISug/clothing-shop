@@ -1,48 +1,85 @@
-<DOCTYPE html>
-<html>
+<?php 
 
-	<head>
-	   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    include_once 'com/view/administration/header.php';
+
+    $categories = $response->supportingEntity("categories");
+
+?>
+
+	<div style="margin-top: 80px">
 	
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-	</head>
-	<?php 
+        <form id="create-product-form" action="<?php echo $response->serverContext(); ?>/administration/products/api/v1" method="POST" enctype="multipart/form-data">
+      		<div class="form-group row">
+            	<label for="name" class="col-sm-2 col-form-label">Име на продукта</label>
+            	<input type="text" name="name" class="col-sm-10 form-control" id="name" placeholder="Име на продукта">
+          	</div>
+          	
+          	<div class="form-group row">
+        		<label for="type" class="col-sm-2 col-form-label">Тип</label>
+        		<select name="type" class="col-sm-10 form-control" id="type">
+        			<option value="male">Мъже</option>
+        			<option value="female">Жени</option>
+        		</select>
+          	</div>
+        
+          	<div class="form-group row">
+            	<label for="category" class="col-sm-2 col-form-label">Категория</label>
+        		<select class="col-sm-10 form-control" name="category_id" id="category">
+            	<?php 
+            		foreach ($categories as $category) {
+            	?>
+            			<option value="<?php echo $category->id(); ?>"><?php echo $category->name(); ?></option>
+            	<?php
+            		}
+            	?>
+        		</select>
+    		</div>
+    	
+    		<div class="form-group row">
+                <label for="description" class="col-sm-2 col-form-label">Описание</label>
+    			<textarea class="col-sm-10 form-control" form="create-product-form" id="description" name="description" placeholder="Описание"></textarea>
+    		</div>
+    		
+    		<div class="form-group row">
+                <label for="price" class="col-sm-2 col-form-label">Цена</label>
+    			<input id="price" class="col-sm-10 form-control" type="number" min="0" step="0.01" value="0" name="price" />
+    		</div>
+    	
+    		<div class="form-group row">
+                <label for="promotional_price" class="col-sm-2 col-form-label">Промоционална цена</label>
+    			<input id="promotional_price" class="col-sm-10 form-control" type="number" min="0" step="0.01" value="0" name="promotional_price" />
+    		</div>
+    
+    		<div class="form-group row">
+                <label for="size" class="col-sm-2 col-form-label">Размери</label>
+        		<select id="size" class="col-sm-10 form-control" name="available_sizes[]" multiple="multiple">
+        			<option value="XS">XS</option>
+        			<option value="S">S</option>
+        			<option value="M">M</option>
+        			<option value="L">L</option>
+        			<option value="XL">XL</option>
+        			<option value="XXL">XXL</option>
+        		</select>
+    		</div>
+    		
+    		<div class="form-group row">
+    			<input class="col-sm-3 form-control-file images" type="file" name="productimage[]">
+    		</div>
+    
+    		<div class="form-group row">
+    			<button class="col-sm-6 offset-sm-3 form-control btn btn-success more" type="submit">
+    				Добави още снимки
+    			</button>
+    		</div>
+    		
+    		<div class="form-group">
+    			<button type="submit" class="btn btn-primary col-sm-6 offset-sm-3">Създай</button>
+        	</div>
+    
+        </form>
 
-	   $categories = $response->supportingEntity("categories");
-
-	?>
-
-	<form id="create-product-form" action="<?php echo $response->serverContext(); ?>/administration/products/api/v1" method="POST" enctype="multipart/form-data">
-		<input type="text" name="name" />
-		<select name="type">
-			<option value="male">Мъже</option>
-			<option value="female">Жени</option>
-			<option value="kids">Деца</option>
-		</select>
-		<select name="category_id">
-    	<?php 
-    		foreach ($categories as $category) {
-    	?>
-    			<option value="<?php echo $category->id(); ?>"><?php echo $category->name(); ?></option>
-    	<?php
-    		}
-    	?>
-		</select>
-		<textarea form="create-product-form" name="description" placeholder="Описание"></textarea>
-		<input type="number" step="0.01" name="price" />
-		<input type="number" step="0.01" value="0" name="promotional_price" />
-		<select name="available_sizes[]" multiple="multiple">
-			<option value="XS">XS</option>
-			<option value="S">S</option>
-			<option value="M">M</option>
-			<option value="L">L</option>
-			<option value="XL">XL</option>
-			<option value="XXL">XXL</option>
-		</select>
-		<input class="images" type="file" name="productimage[]"><button class="more"><i class="fas fa-plus"></i></button>
-		<input type="submit" />
-	</form>
-
+	</div>
+    
 	<script>
 		debugger;
 
@@ -52,9 +89,14 @@
 				return false;
 			}
 
-			$("<input type='file' name='productimage[]'>").insertAfter(".images");
+			$("<input class='col-sm-2 form-control-file' type='file' name='productimage[]'>").insertAfter(".images");
 
 			return false;
 		});
 	</script>
-</html>
+
+<?php 
+
+    include_once 'com/view/administration/footer.php';
+
+?>

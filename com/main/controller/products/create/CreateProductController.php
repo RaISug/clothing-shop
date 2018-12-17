@@ -27,8 +27,14 @@ class CreateProductController extends Controller {
     public function handle(Request $request) {
         $factory = new ProductFactory();
 
-        $this->fileService->uploadFilesInto($request->getFiles("productimage"), Constants::$PRODUCTS_UPLOAD_DIRECTORY);
-        $this->repository->persist($factory->createProductFromRequest($request));
+        $files = $request->getFiles("productimage");
+
+        $this->fileService->uploadFilesInto($files, Constants::$PRODUCTS_UPLOAD_DIRECTORY);
+
+        $product = $factory->createProductFromRequest($request);
+        $product->setImageName($files->getUniqueNames());
+
+        $this->repository->persist($product);
 
         return (new ResponseBuilder())->withStatusCodeOK()->build();
     }

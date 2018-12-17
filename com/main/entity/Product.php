@@ -17,7 +17,7 @@ class Product {
 
     public function __construct($data) {
         $this->id = $data['ID'];
-        $this->name = $data['NAME'];
+        $this->name = $data['name'];
         $this->type = $data['type'];
         $this->price = $data['price'];
         $this->imageName = $data['image_name'];
@@ -42,6 +42,10 @@ class Product {
 
     public function price() {
         return $this->price;
+    }
+
+    public function setImageName($imageName) {
+        $this->imageName = $imageName;
     }
 
     public function imageName() {
@@ -88,6 +92,21 @@ class Product {
         $position = strpos($this->availableSizes, $size);
 
         return $position || $position === 0;
+    }
+
+    public function asArray() {
+        return array(
+            "ID" => $this->id,
+            "name" => $this->name,
+            "type" => $this->type,
+            "price" => $this->price,
+            "promotional_price" => $this->promotionalPrice,
+            "image_name" => $this->imageName,
+            "category" => $this->category,
+            "category_id" => $this->categoryId,
+            "description" => $this->description,
+            "available_sizes" => $this->availableSizes
+        );
     }
 
 }

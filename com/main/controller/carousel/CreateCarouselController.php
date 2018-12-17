@@ -27,9 +27,14 @@ class CreateCarouselController extends Controller {
     }
 
     public function handle(Request $request) {
-        $this->fileService->uploadFileInto($request->getFile("carouselimage"), Constants::$CAROUSEL_UPLOAD_DIRECTORY);
+        $file = $request->getFile("carouselimage");
+        
+        $this->fileService->uploadFileInto($file, Constants::$CAROUSEL_UPLOAD_DIRECTORY);
 
-        $this->repository->persist($this->factory->createCarouselFromRequest($request));
+        $carousel = $this->factory->createCarouselFromRequest($request);
+        $carousel->setImageName($file->getUniqueName());
+
+        $this->repository->persist($carousel);
 
         return (new ResponseBuilder())->withStatusCodeOK()->build();
     }

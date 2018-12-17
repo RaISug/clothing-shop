@@ -12,7 +12,7 @@ class FileService {
         while ($files->hasMore()) {
             $file = $files->next();
 
-            $this->uploadFile($file, $directory);
+            $this->uploadFileInto($file, $directory);
         }
     }
 
@@ -26,7 +26,7 @@ class FileService {
     
     public function deleteFilesFrom($filenames, string $directory) {
         foreach ($filenames as $filename) {
-            $this->deleteFile($filename, $directory);
+            $this->deleteFileFrom($filename, $directory);
         }
     }
 
