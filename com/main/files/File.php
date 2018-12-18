@@ -11,6 +11,10 @@ class File {
         $this->file = $file;
     }
 
+    public function isUploaded() {
+        return $this->file['error'] != UPLOAD_ERR_NO_FILE;
+    }
+
     public function getTemporalName() {
         return $this->file['tmp_name'];
     }
@@ -25,7 +29,7 @@ class File {
 
     public function getUniqueName() {
         if ($this->uniqueName == null) {
-            $this->uniqueName = strval(time()) . "." . $this->getExtension();
+            $this->uniqueName = strval(microtime()) . "." . $this->getExtension();
         }
 
         return $this->uniqueName;

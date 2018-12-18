@@ -106,6 +106,12 @@ require_once 'com/main/services/OrderingService.php';
 require_once 'com/main/services/PaginationService.php';
 require_once 'com/main/services/EmailService.php';
 require_once 'com/main/services/RedirectionService.php';
+require_once 'com/main/services/TableBuilder.php';
+
+require_once 'com/external/libraries/mailer/src/Exception.php';
+require_once 'com/external/libraries/mailer/src/PHPMailer.php';
+require_once 'com/external/libraries/mailer/src/SMTP.php';
+require_once 'com/external/libraries/mailer/src/POP3.php';
 
 use request\Request as Request;
 use controller\ListProductsController;

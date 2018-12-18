@@ -27,7 +27,7 @@ class CreateOrderController extends Controller {
         $this->factory = new OrderFactory();
         $this->repository = new OrderRepository();
         $this->productRepository = new ProductRepository();
-//         $this->emailService = new EmailService();
+        $this->emailService = new EmailService();
     }
 
     public function canHandle(Request $request) {
@@ -51,7 +51,7 @@ class CreateOrderController extends Controller {
 
         $this->cart->clear();
 
-//         $this->emailService->sendEmail($order);
+        $this->emailService->sendEmail($order);
 
         return (new ResponseBuilder())->withRequest($request)->withStatusCodeOK()->build();
     }
@@ -76,7 +76,7 @@ class CreateOrderController extends Controller {
 
         $entities = array();
 
-        while ($row = $dbResponse->fetch_assocпоръчка()) {
+        while ($row = $dbResponse->fetch_assoc()) {
             $product = new Product($row);
             foreach ($cartItems as $cartItem) {
                 if ($cartItem->productId() == $product->id()) {

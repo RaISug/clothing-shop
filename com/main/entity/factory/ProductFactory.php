@@ -14,7 +14,7 @@ class ProductFactory {
             'type' => $request->getParameter("type"),
             'category_id' => $request->getParameter("category_id"),
             'price' => $request->getParameter("price"),
-            'image_name' => $request->getFiles("productimage")->getUniqueNames(),
+//             'image_name' => $request->getFiles("productimage")->getUniqueNames(),
             'description' => $request->getParameter("description"),
             'promotional_price' => $request->getParameter("promotional_price"),
             'available_sizes' => $request->getMultiValueParameterAsStringDelimitedWithSemicolon("available_sizes")

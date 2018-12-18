@@ -17,6 +17,16 @@ class Files {
         $this->currentIndex = 0;
     }
 
+    public function areUploaded() {
+        foreach ($this->files as $file) {
+            if ($file->isUploaded() === false) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public function hasMore() {
         return $this->currentIndex < count($this->files);
     }

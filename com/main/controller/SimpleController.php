@@ -17,7 +17,7 @@ class SimpleController extends Controller {
     public function handle(Request $request) {
         $this->requestPath = $request->getPath();
 
-        return (new ResponseBuilder())->withStatusCodeOK()->build();
+        return (new ResponseBuilder())->withRequest($request)->withStatusCodeOK()->build();
     }
 
     public function display(Response $response) {
