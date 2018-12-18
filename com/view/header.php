@@ -15,7 +15,7 @@
         <link href="http://localhost/com.radoslav.web.shop/com/external/libraries/ui/bootstrap/css/bootstrap.css" rel="stylesheet">
         <link href="http://localhost/com.radoslav.web.shop/com/external/libraries/ui/font-awesome/all.min.css" rel="stylesheet">
         <link href="http://localhost/com.radoslav.web.shop/com/view/administration/carousel.css" rel="stylesheet">
-    	<link rel="stylesheet" href="http://localhost/com.radoslav.web.shop/com/view/home/home.css" />
+    	<link rel="stylesheet" href="http://localhost/com.radoslav.web.shop/com/view/home.css" />
     	<link rel="stylesheet" href="http://localhost/com.radoslav.web.shop/com/view/products.css" />
     	<link rel="stylesheet" href="http://localhost/com.radoslav.web.shop/com/view/cart.css" />
     	<link rel="stylesheet" href="http://localhost/com.radoslav.web.shop/com/view/product.css" />

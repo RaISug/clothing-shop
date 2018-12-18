@@ -22,9 +22,8 @@ class SimpleController extends Controller {
 
     public function display(Response $response) {
         $pathToViewMappings = array(
-            "" => "com/view/index.php",
-            "/" => "com/view/index.php",
-            "/home" => "com/view/home.php",
+            "" => "com/view/home.php",
+            "/" => "com/view/home.php",
             "/login" => "com/view/login.php",
             "/orders/api/v1" => "com/view/orders.php",
             "/orders/api/v1/order/submitted" => "com/view/order-submitted.php",
