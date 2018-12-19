@@ -3,7 +3,9 @@
     include_once 'com/view/administration/header.php';
 
     $product = $response->entity();
+
     $categories = $response->supportingEntity("categories");
+    $languages = $response->supportingEntity("languages");
 
 ?>
 	<div style="margin-top: 80px">
@@ -66,6 +68,21 @@
         		</select>
     		</div>
     		
+    		<div class="form-group row">
+                <label for="language" class="col-sm-2 col-form-label">Език</label>
+    			<select name="language_id" class="col-sm-10 form-control" id="language">
+
+        			<?php 
+        			foreach ($languages as $language) {
+        			    ?>
+        			    <option value="<?php echo $language->id(); ?>" <?php if ($product->languageId() == $language->id()) { echo "selected"; } ?>><?php echo $language->name(); ?></option>
+        			    <?php
+        			}
+        			?>
+    				
+    			</select>
+			</div>
+			
     		<div class="form-group row">
     			<input class="col-sm-3 form-control-file images" type="file" name="productimage[]">
     		</div>

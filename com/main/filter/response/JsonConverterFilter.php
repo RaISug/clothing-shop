@@ -14,6 +14,7 @@ class JsonConverterFilter implements ResponseFilter {
 
     public function filter(Response &$response) {
         $response = (new ResponseBuilder())
+                        ->withLanguage($response->language())
                         ->withRequest($response->request())
                         ->withEntity(json_encode($response->entity()))
                         ->withContentTypeApplicationJson()

@@ -9,6 +9,7 @@ class Collection {
     private $titleName;
     private $description;
     private $technicalName;
+    private $languageId;
     
     public function __construct($data) {
         $this->id = $data['id'];
@@ -16,6 +17,7 @@ class Collection {
         $this->titleName = $data['title_name'];
         $this->description = $data['description'];
         $this->technicalName = $data['technical_name'];
+        $this->languageId = $data['language_id'];
     }
 
     public function id() {
@@ -42,4 +44,8 @@ class Collection {
         return $this->technicalName;
     }
     
+    public function languageId() {
+        return $this->languageId;
+    }
+
 }

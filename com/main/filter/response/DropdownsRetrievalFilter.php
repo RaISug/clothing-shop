@@ -17,7 +17,7 @@ class DropdownsRetrievalFilter implements ResponseFilter {
     }
 
     public function canHandle(Request $request, Response $response) {
-        return $request->isGETRequest() && strpos($request->getPath(), "/administration/") == false;
+        return $request->isGETRequest() && strpos($request->getPath(), "/administration/") === false;
     }
 
     public function filter(Response &$response) {
@@ -25,6 +25,7 @@ class DropdownsRetrievalFilter implements ResponseFilter {
         $womenCategories = $this->retrieveWomenCategories();
 
         $response = (new ResponseBuilder())
+                            ->withLanguage($response->language())
                             ->withRequest($response->request())
                             ->withEntity($response->entity())
                             ->withStatusCode($response->statusCode())

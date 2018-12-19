@@ -12,7 +12,8 @@ class CollectionFactory {
             'image_name' => $request->getFile("collectionimage")->getUniqueName(),
             'title_name' => $request->getParameter("title_name"),
             'description' => $request->getParameter("description"),
-            'technical_name' => $request->getParameter("technical_name")
+            'technical_name' => $request->getParameter("technical_name"),
+            'language_id' => $request->getParameter("language_id")
         );
         
         return new Collection($data);

@@ -12,6 +12,7 @@ require_once 'com/main/database/repository/ProductRepository.php';
 require_once 'com/main/database/repository/UserRepository.php';
 require_once 'com/main/database/repository/CarouselRepository.php';
 require_once 'com/main/database/repository/CollectionRepository.php';
+require_once 'com/main/database/repository/LanguageRepository.php';
 
 require_once 'com/main/controller/Controller.php';
 require_once 'com/main/controller/SimpleController.php';
@@ -55,6 +56,14 @@ require_once 'com/main/controller/collections/CreateCollectionController.php';
 require_once 'com/main/controller/collections/ListCollectionsController.php';
 require_once 'com/main/controller/collections/DeleteCollectionController.php';
 
+require_once 'com/main/controller/language/CreateLanguageController.php';
+require_once 'com/main/controller/language/DeleteLanguageController.php';
+require_once 'com/main/controller/language/ListLanguagesController.php';
+require_once 'com/main/controller/language/ChangeActiveLanguageController.php';
+require_once 'com/main/controller/language/ListSingleLanguageController.php';
+require_once 'com/main/controller/language/UpdateLanguageController.php';
+
+
 require_once 'com/main/entity/Order.php';
 require_once 'com/main/entity/Category.php';
 require_once 'com/main/entity/Product.php';
@@ -62,6 +71,7 @@ require_once 'com/main/entity/User.php';
 require_once 'com/main/entity/Carousel.php';
 require_once 'com/main/entity/Collection.php';
 require_once 'com/main/entity/ProductInCart.php';
+require_once 'com/main/entity/Language.php';
 
 require_once 'com/main/entity/factory/OrderFactory.php';
 require_once 'com/main/entity/factory/CategoryFactory.php';
@@ -69,21 +79,25 @@ require_once 'com/main/entity/factory/UserFactory.php';
 require_once 'com/main/entity/factory/ProductFactory.php';
 require_once 'com/main/entity/factory/CarouselFactory.php';
 require_once 'com/main/entity/factory/CollectionFactory.php';
+require_once 'com/main/entity/factory/LanguageFactory.php';
 
 require_once 'com/main/response/Response.php';
 require_once 'com/main/response/ResponseBuilder.php';
 
 require_once 'com/main/filter/RequestFilter.php';
-require_once 'com/main/filter/request/AuthenticationFilter.php';
 require_once 'com/main/filter/ResponseFilter.php';
 
+require_once 'com/main/filter/request/AuthenticationFilter.php';
 require_once 'com/main/filter/request/AuthenticatedCallsRedirectionFilter.php';
+require_once 'com/main/filter/request/InternationalizationRequestFilter.php';
 
 require_once 'com/main/filter/response/JsonConverterFilter.php';
 require_once 'com/main/filter/response/CategoriesRetrievalFilter.php';
 require_once 'com/main/filter/response/CollectionsRetrievalFilter.php';
 require_once 'com/main/filter/response/DropdownsRetrievalFilter.php';
 require_once 'com/main/filter/response/CarouselsRetrievalFilter.php';
+require_once 'com/main/filter/response/InternationalizationFilter.php';
+require_once 'com/main/filter/response/LanguageRetrievalFilter.php';
 
 require_once 'com/main/session/SessionService.php';
 
@@ -107,6 +121,7 @@ require_once 'com/main/services/PaginationService.php';
 require_once 'com/main/services/EmailService.php';
 require_once 'com/main/services/RedirectionService.php';
 require_once 'com/main/services/TableBuilder.php';
+require_once 'com/main/services/InternationalizationService.php';
 
 require_once 'com/external/libraries/mailer/src/Exception.php';
 require_once 'com/external/libraries/mailer/src/PHPMailer.php';
@@ -155,12 +170,22 @@ use filter\DropdownsRetrievalFilter;
 use filter\CarouselsRetrievalFilter;
 use controller\ListProductsInCollectionController;
 use controller\RemoveProductFromCartController;
+use filter\InternationalizationFilter;
+use controller\CreateLanguageController;
+use controller\DeleteLanguageController;
+use controller\ListLanguagesController;
+use filter\LanguageRetrievalFilter;
+use controller\ChangeActiveLanguageController;
+use filter\InternationalizationRequestFilter;
+use controller\ListSingleLanguageController;
+use controller\UpdateLanguageController;
 
 $request = new Request();
 
 $requestFilters = array(
     new AuthenticationFilter(),
-    new AuthenticatedCallsRedirectionFilter()
+    new AuthenticatedCallsRedirectionFilter(),
+    new InternationalizationRequestFilter()
 );
 
 $controllers = array(
@@ -196,6 +221,12 @@ $controllers = array(
     new CreateCollectionController(),
     new ListCollectionsController(),
     new DeleteCollectionController(),
+    new CreateLanguageController(),
+    new DeleteLanguageController(),
+    new ListLanguagesController(),
+    new ChangeActiveLanguageController(),
+    new ListSingleLanguageController(),
+    new UpdateLanguageController(),
     new SimpleController()
 );
 
@@ -204,7 +235,9 @@ $responseFilters = array(
     new CategoriesRetrievalFilter(),
     new CollectionsRetrievalFilter(),
     new DropdownsRetrievalFilter(),
-    new CarouselsRetrievalFilter()
+    new CarouselsRetrievalFilter(),
+    new InternationalizationFilter(),
+    new LanguageRetrievalFilter()
 );
 
 try {

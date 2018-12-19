@@ -11,14 +11,16 @@ class Response {
     private $headers;
     private $contentType;
     private $request;
+    private $language;
 
-    public function __construct($statusCode, $entity, $supportingEntities, $headers, $contentType, $request) {
+    public function __construct($statusCode, $entity, $supportingEntities, $headers, $contentType, $request, $language) {
         $this->statusCode = $statusCode;
         $this->entity = $entity;
         $this->supportingEntities = $supportingEntities;
         $this->headers = $headers;
         $this->contentType = $contentType;
         $this->request = $request;
+        $this->language = $language;
     }
 
     public function entity() {
@@ -41,7 +43,7 @@ class Response {
         return $this->statusCode;
     }
 
-    public function getHeader($name) {
+    public function header($name) {
         return $this->headers[$name];
     }
 
@@ -52,9 +54,17 @@ class Response {
     public function serverContext() {
         return "/com.radoslav.web.shop/t.php";
     }
+    
+    public function imagesContext() {
+        return "/com.radoslav.web.shop/images";
+    }
 
     public function request() {
         return $this->request;
+    }
+
+    public function language() {
+        return $this->language;
     }
 
 }

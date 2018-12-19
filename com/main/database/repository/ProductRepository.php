@@ -4,22 +4,34 @@ namespace repository;
 
 use entity\Product;
 use exception\InternalServerErrorException;
+use session\SessionService;
 
 class ProductRepository {
 
     private $connectionFactory;
+    private $sessionService;
     
     public function __construct() {
         $this->connectionFactory = new \ConnectionFactory();
+        $this->sessionService = new SessionService();
     }
 
     public function all(int &$page, int &$offset, $orderBy, $orderingType) {
         $connection = $this->connectionFactory->create();
 
-        if ($orderBy === null) {
-            $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id LIMIT ?,?");
+        $language = $this->getLanguage();
+        if ($language === null) {
+            if ($orderBy === null) {
+                $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id LIMIT ?,?");
+            } else {
+                $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id ORDER BY p." . $orderBy . " " . $orderingType . " LIMIT ?,?");
+            }
         } else {
-            $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id ORDER BY p." . $orderBy . " " . $orderingType . " LIMIT ?,?");
+            if ($orderBy === null) {
+                $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id AND p.language_id = " . $language->id() . " LIMIT ?,?");
+            } else {
+                $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id AND p.language_id = " . $language->id() . " ORDER BY p." . $orderBy . " " . $orderingType . " LIMIT ?,?");
+            }
         }
 
         $startIndex = $page * $offset;
@@ -30,11 +42,20 @@ class ProductRepository {
 
         return $statement->get_result();
     }
+    
+    private function getLanguage() {
+        return $this->sessionService->getAttribute("language");
+    }
 
     public function count() {
         $connection = $this->connectionFactory->create();
 
-        $query = $connection->query("SELECT COUNT(*) as products_count FROM products");
+        $language = $this->getLanguage();
+        if ($language === null) {
+            $query = $connection->query("SELECT COUNT(*) as products_count FROM products");
+        } else {
+            $query = $connection->query("SELECT COUNT(*) as products_count FROM products WHERE language_id = " . $language->id());
+        }
 
         return $query->fetch_assoc()['products_count'];
     }
@@ -42,7 +63,12 @@ class ProductRepository {
     public function countOfItemsInCategory(string $category) {
         $connection = $this->connectionFactory->create();
 
-        $statement = $connection->prepare("SELECT COUNT(*) as products_count FROM products p JOIN categories c ON p.category_id = c.id WHERE c.name = ?");
+        $language = $this->getLanguage();
+        if ($language === null) {
+            $statement = $connection->prepare("SELECT COUNT(*) as products_count FROM products p JOIN categories c ON p.category_id = c.id WHERE c.name = ?");
+        } else {
+            $statement = $connection->prepare("SELECT COUNT(*) as products_count FROM products p JOIN categories c ON p.category_id = c.id WHERE c.name = ? AND p.language_id = " . $language->id());
+        }
 
         $statement->bind_param("s", $category);
 
@@ -54,7 +80,12 @@ class ProductRepository {
     public function countOfItemsInType(string $type) {
         $connection = $this->connectionFactory->create();
         
-        $statement = $connection->prepare("SELECT COUNT(*) as products_count FROM products WHERE type = ?");
+        $language = $this->getLanguage();
+        if ($language === null) {
+            $statement = $connection->prepare("SELECT COUNT(*) as products_count FROM products WHERE type = ?");
+        } else {
+            $statement = $connection->prepare("SELECT COUNT(*) as products_count FROM products WHERE type = ? AND language_id = " . $language->id());
+        }
         
         $statement->bind_param("s", $type);
         
@@ -66,7 +97,12 @@ class ProductRepository {
     public function countOfItemsInCollection(string $collection) {
         $connection = $this->connectionFactory->create();
         
-        $statement = $connection->prepare("SELECT COUNT(*) as products_count FROM products p JOIN products_to_collections_mapping pcm ON pcm.product_id = p.id JOIN collections c ON c.id = pcm.collection_id WHERE c.technical_name = ?");
+        $language = $this->getLanguage();
+        if ($language === null) {
+            $statement = $connection->prepare("SELECT COUNT(*) as products_count FROM products p JOIN products_to_collections_mapping pcm ON pcm.product_id = p.id JOIN collections c ON c.id = pcm.collection_id WHERE c.technical_name = ?");
+        } else {
+            $statement = $connection->prepare("SELECT COUNT(*) as products_count FROM products p JOIN products_to_collections_mapping pcm ON pcm.product_id = p.id JOIN collections c ON c.id = pcm.collection_id WHERE c.technical_name = ? AND p.language_id = " . $language->id());
+        }
         
         $statement->bind_param("s", $collection);
         
@@ -78,7 +114,12 @@ class ProductRepository {
     public function countOfItemsForTypeInCategory(string $type, string $category) {
         $connection = $this->connectionFactory->create();
         
-        $statement = $connection->prepare("SELECT COUNT(*) as products_count FROM products p JOIN categories c ON p.category_id = c.id WHERE p.type = ? AND c.name = ?");
+        $language = $this->getLanguage();
+        if ($language === null) {
+            $statement = $connection->prepare("SELECT COUNT(*) as products_count FROM products p JOIN categories c ON p.category_id = c.id WHERE p.type = ? AND c.name = ?");
+        } else {
+            $statement = $connection->prepare("SELECT COUNT(*) as products_count FROM products p JOIN categories c ON p.category_id = c.id WHERE p.type = ? AND c.name = ? AND p.language_id = " . $language->id());
+        }
         
         $statement->bind_param("ss", $type, $category);
         
@@ -132,10 +173,19 @@ class ProductRepository {
     public function byType(string $type, int &$page, int &$offset, $orderBy, $orderingType) {
         $connection = $this->connectionFactory->create();
 
-        if ($orderBy === null) {
-            $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id WHERE p.type = ? LIMIT ?,?");
+        $language = $this->getLanguage();
+        if ($language === null) {
+            if ($orderBy === null) {
+                $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id WHERE p.type = ? LIMIT ?,?");
+            } else {
+                $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id WHERE p.type = ? ORDER BY p." . $orderBy . " " . $orderingType . " LIMIT ?,?");
+            }
         } else {
-            $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id WHERE p.type = ? ORDER BY p." . $orderBy . " " . $orderingType . " LIMIT ?,?");
+            if ($orderBy === null) {
+                $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id WHERE p.type = ? AND p.language_id = " . $language->id() . " LIMIT ?,?");
+            } else {
+                $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id WHERE p.type = ? AND p.language_id = " . $language->id() . " ORDER BY p." . $orderBy . " " . $orderingType . " LIMIT ?,?");
+            }
         }
 
         $startIndex = $page * $offset;
@@ -150,10 +200,19 @@ class ProductRepository {
     public function byCategory(string $category, int &$page, int &$offset, $orderBy, $orderingType) {
         $connection = $this->connectionFactory->create();
 
-        if ($orderBy === null) {
-            $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id WHERE c.name = ? LIMIT ?,?");
+        $language = $this->getLanguage();
+        if ($language === null) {
+            if ($orderBy === null) {
+                $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id WHERE c.name = ? LIMIT ?,?");
+            } else {
+                $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id WHERE c.name = ? ORDER BY p." . $orderBy . " " . $orderingType . " LIMIT ?,?");
+            }
         } else {
-            $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id WHERE c.name = ? ORDER BY p." . $orderBy . " " . $orderingType . " LIMIT ?,?");
+            if ($orderBy === null) {
+                $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id WHERE c.name = ? AND p.language_id = " . $language->id() . " LIMIT ?,?");
+            } else {
+                $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id WHERE c.name = ? AND p.language_id = " . $language->id() . " ORDER BY p." . $orderBy . " " . $orderingType . " LIMIT ?,?");
+            }
         }
 
         $startIndex = $page * $offset;
@@ -168,10 +227,19 @@ class ProductRepository {
     public function byCollection(string $collection, int &$page, int &$offset, $orderBy, $orderingType) {
         $connection = $this->connectionFactory->create();
         
-        if ($orderBy === null) {
-            $statement = $connection->prepare("SELECT p.* FROM products p JOIN products_to_collections_mapping pcm ON pcm.product_id = p.id JOIN collections c ON c.id = pcm.collection_id WHERE c.technical_name = ? LIMIT ?,?");
+        $language = $this->getLanguage();
+        if ($language === null) {
+            if ($orderBy === null) {
+                $statement = $connection->prepare("SELECT p.* FROM products p JOIN products_to_collections_mapping pcm ON pcm.product_id = p.id JOIN collections c ON c.id = pcm.collection_id WHERE c.technical_name = ? LIMIT ?,?");
+            } else {
+                $statement = $connection->prepare("SELECT p.* FROM products p JOIN products_to_collections_mapping pcm ON pcm.product_id = p.id JOIN collections c ON c.id = pcm.collection_id WHERE c.technical_name = ? ORDER BY p." . $orderBy . " " . $orderingType . " LIMIT ?,?");
+            }
         } else {
-            $statement = $connection->prepare("SELECT p.* FROM products p JOIN products_to_collections_mapping pcm ON pcm.product_id = p.id JOIN collections c ON c.id = pcm.collection_id WHERE c.technical_name = ? ORDER BY p." . $orderBy . " " . $orderingType . " LIMIT ?,?");
+            if ($orderBy === null) {
+                $statement = $connection->prepare("SELECT p.* FROM products p JOIN products_to_collections_mapping pcm ON pcm.product_id = p.id JOIN collections c ON c.id = pcm.collection_id WHERE c.technical_name = ? AND p.language_id = " . $language->id() . " LIMIT ?,?");
+            } else {
+                $statement = $connection->prepare("SELECT p.* FROM products p JOIN products_to_collections_mapping pcm ON pcm.product_id = p.id JOIN collections c ON c.id = pcm.collection_id WHERE c.technical_name = ? AND p.language_id = " . $language->id() . " ORDER BY p." . $orderBy . " " . $orderingType . " LIMIT ?,?");
+            }
         }
         
         $startIndex = $page * $offset;
@@ -186,10 +254,19 @@ class ProductRepository {
     public function byTypeAndCategory(string $type, string $category, int &$page, int &$offset, $orderBy, $orderingType) {
         $connection = $this->connectionFactory->create();
 
-        if ($orderBy === null) {
-            $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id WHERE p.type = ? AND c.name = ? LIMIT ?,?");
+        $language = $this->getLanguage();
+        if ($language === null) {
+            if ($orderBy === null) {
+                $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id WHERE p.type = ? AND c.name = ? LIMIT ?,?");
+            } else {
+                $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id WHERE p.type = ? AND c.name = ? ORDER BY p." . $orderBy . " " . $orderingType . " LIMIT ?,?");
+            }
         } else {
-            $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id WHERE p.type = ? AND c.name = ? ORDER BY p." . $orderBy . " " . $orderingType . " LIMIT ?,?");
+            if ($orderBy === null) {
+                $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id WHERE p.type = ? AND c.name = ? AND p.language_id = " . $language->id() . " LIMIT ?,?");
+            } else {
+                $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id WHERE p.type = ? AND c.name = ? AND p.language_id = " . $language->id() . " ORDER BY p." . $orderBy . " " . $orderingType . " LIMIT ?,?");
+            }
         }
 
         $startIndex = $page * $offset;
@@ -204,9 +281,9 @@ class ProductRepository {
     public function persist(Product $product) {
         $connection = $this->connectionFactory->create();
 
-        $statement = $connection->prepare("INSERT INTO products (NAME, type, price, image_name, category_id, description, promotional_price, available_sizes) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $statement = $connection->prepare("INSERT INTO products (name, type, price, image_name, category_id, description, promotional_price, available_sizes, language_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-        $statement->bind_param("ssdsisds", $product->name(), $product->type(), $product->price(), $product->imageName(), $product->categoryId(), $product->description(), $product->promotionalPrice(), $product->availableSizes());
+        $statement->bind_param("ssdsisdsi", $product->name(), $product->type(), $product->price(), $product->imageName(), $product->categoryId(), $product->description(), $product->promotionalPrice(), $product->availableSizes(), $product->languageId());
 
         if ($statement->execute() === FALSE) {
             throw new InternalServerErrorException("Failed to create product");
@@ -216,9 +293,9 @@ class ProductRepository {
     public function update(Product $product) {
         $connection = $this->connectionFactory->create();
 
-        $statement = $connection->prepare("UPDATE products SET NAME = ?, type = ?, category_id = ?, price = ?, image_name = ?, description = ?, promotional_price = ?, available_sizes = ? WHERE ID = ?");
+        $statement = $connection->prepare("UPDATE products SET name = ?, type = ?, category_id = ?, price = ?, image_name = ?, description = ?, promotional_price = ?, available_sizes = ?, language_id = ? WHERE ID = ?");
 
-        $statement->bind_param("ssidssdsi", $product->name(), $product->type(), $product->categoryId(), $product->price(), $product->imageName(), $product->description(), $product->promotionalPrice(), $product->availableSizes(), $product->id());
+        $statement->bind_param("ssidssdsii", $product->name(), $product->type(), $product->categoryId(), $product->price(), $product->imageName(), $product->description(), $product->promotionalPrice(), $product->availableSizes(), $product->languageId(), $product->id());
 
         if ($statement->execute() === FALSE) {
             throw new InternalServerErrorException("Failed to update product");

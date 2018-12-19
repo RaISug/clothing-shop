@@ -40,7 +40,6 @@ class ValidateCredentialsController extends Controller {
     }
 
     private function addUserIntoSession($user) {
-        $this->sessionService->start();
         $this->sessionService->setAuthenticatedUser($user);
     }
 

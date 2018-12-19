@@ -1,11 +1,15 @@
 <?php
 
+    use service\InternationalizationService;
+
     include_once 'header.php';
     
     $product = $response->entity();
     $request = $response->request();
     
     $images = $product->imageNamesAsArray();
+    
+    $internationalizationService = new InternationalizationService($response->language());
 
 ?>
 	<div class="container" style="margin-top: 30px; padding: 30px; background-color: white; border: 1px solid #d1d1d1;">
@@ -13,7 +17,7 @@
   		if ($request->getQueryParameter("insert") === "succeed") {
   	        ?>
   	        	<div id="success-alert" class="alert alert-success" role="alert">
-                	Продукта беше успешно добавен към вашата кошница.
+                	<?php echo $internationalizationService->get("product_view_successfully_added_product_message"); ?>
                 </div>
   	        <?php
   	    }
@@ -43,7 +47,7 @@
 				<div>
 					<table>
 						<tr>
-							<td class="description">Име на продукта: </td>
+							<td class="description"><?php echo $internationalizationService->get("product_view_product_name_label"); ?>: </td>
 							<td><?php echo $product->name(); ?></td>
 						</tr>
 						
@@ -52,7 +56,7 @@
     						?>
 						
     						<tr>
-    							<td class="description">Описание: </td>
+    							<td class="description"><?php echo $internationalizationService->get("product_view_product_description_label"); ?>: </td>
     							<td><?php echo $product->description(); ?></td>
     						</tr>
 						
@@ -62,17 +66,17 @@
 						?>
 					
 						<tr>
-							<td class="description">Тип: </td>
+							<td class="description"><?php echo $internationalizationService->get("product_view_product_type_label"); ?>: </td>
 							<td><?php if ($product->type() === "male") { echo "Мъжки"; } else { echo "Дамски"; }?></td>
 						</tr>
 					
 						<tr>
-							<td class="description">Категория: </td>
+							<td class="description"><?php echo $internationalizationService->get("product_view_product_category_label"); ?>: </td>
 							<td><?php echo $product->category(); ?></td>
 						</tr>
 					
 						<tr>
-							<td class="description">Цена: </td>
+							<td class="description"><?php echo $internationalizationService->get("product_view_product_price_label"); ?>: </td>
 							<td>
 								<?php
     								if ($product->promotionalPrice() == 0) {

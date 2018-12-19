@@ -10,8 +10,6 @@ class Cart {
 
     public function __construct() {
         $this->sessionService = new SessionService();
-
-        $this->sessionService->start();
     }
 
     public function add($productId, $size) {

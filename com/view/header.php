@@ -22,12 +22,16 @@
     
   	</head>
 
-<?php 
+<?php
+
+    use service\InternationalizationService;
 
     $menCategories = $response->supportingEntity("menCategories");
     $womenCategories = $response->supportingEntity("womenCategories");
     $collections = $response->supportingEntity("collections");
+    $languages = $response->supportingEntity("languages");
 
+    $internationalizationService = new InternationalizationService($response->language());
 ?>
 
 	<body>
@@ -50,7 +54,7 @@
               			    
                             <li class="nav-item dropdown">
                               	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                 	 Мъже
+                                 	 <?php echo $internationalizationService->get("header_view_navbar_mens"); ?>
                               	</a>
 
                 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -78,7 +82,7 @@
 						   
 						   <li class="nav-item dropdown">
                               	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                 	 Жени
+                                 	 <?php echo $internationalizationService->get("header_view_navbar_womens"); ?>
                               	</a>
                 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 	                              	<?php 
@@ -106,7 +110,7 @@
         				    
             				<li class="nav-item dropdown">
                               	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                 	 Колекции
+                                 	 <?php echo $internationalizationService->get("header_view_navbar_collections"); ?>
                               	</a>
                               	
                 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -133,8 +137,30 @@
         			<ul class="navbar-nav justify-content-end">
         				<li class="nav-item">
                           	<a class="nav-link" href="<?php echo $response->serverContext(); ?>/carts/api/v1">
-                             	 Кошница
+                             	 <?php echo $internationalizationService->get("header_view_navbar_cart"); ?>
                           	</a>
+            			</li>
+        				<li class="nav-item dropdown">
+                          	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                             	 <?php echo $internationalizationService->get("header_view_navbar_languages"); ?>
+                          	</a>
+            				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              	<?php 
+                              	foreach ($languages as $language) {
+                              	    ?>
+                                  	<a class="dropdown-item" href="#" onclick="document.getElementById('form-for-language-<?php echo $language->name(); ?>').submit()">
+                                  		<?php echo $language->name(); ?>
+                                  	</a>
+                              	    
+                              	    <form id="form-for-language-<?php echo $language->name(); ?>" action="<?php echo $response->serverContext(); ?>/languages/api/v1" method="POST">
+                              	    	<input type="hidden" name="language_name" value="<?php echo $language->name(); ?>">
+                              	    </form>
+                              	    
+                              	    <?php
+                              	}
+                              	?>
+            					
+                            </div>
             			</li>
         			</ul>
             	</div>

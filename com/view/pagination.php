@@ -1,13 +1,20 @@
 <div align="center">
 	<?php
-	  $request = $response->request();
+
+      use service\InternationalizationService;
+
+      $request = $response->request();
 
 	  $currentPage = $pagination->currentPage();
 	  $pagesCount = $pagination->calculatePagesCount();
 
+	  $internationalizationService = new InternationalizationService($response->language());
+	  
 	  if ($pagination->hasPreviousPage()) {
 	      ?>
-		  	<a href="<?php echo $response->serverContext(); ?><?php echo $request->getPath(); ?>?<?php echo $pagination->constructPreviousPagePaginationQueryPath(); ?>">Предна страница</a>
+		  	<a href="<?php echo $response->serverContext(); ?><?php echo $request->getPath(); ?>?<?php echo $pagination->constructPreviousPagePaginationQueryPath(); ?>">
+		  		<?php echo $internationalizationService->get("pagination_view_previous_page_text"); ?>
+		  	</a>
 		  <?php
 	  }
 
@@ -25,7 +32,9 @@
 	  <?php
 	  if ($pagination->hasMorePages()) {
 		  ?>
-		  	<a href="<?php echo $response->serverContext(); ?><?php echo $request->getPath(); ?>?<?php echo $pagination->constructNextPagePaginationQueryPath(); ?>">Следваща страница</a>
+		  	<a href="<?php echo $response->serverContext(); ?><?php echo $request->getPath(); ?>?<?php echo $pagination->constructNextPagePaginationQueryPath(); ?>">
+		  		<?php echo $internationalizationService->get("pagination_view_next_page_text"); ?>
+	  		</a>
 		  <?php
 	  }
 	?>

@@ -88,6 +88,16 @@
                 </div>
 			</li>
 
+			<li class="nav-item dropdown">
+              	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 	 Езици
+              	</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="<?php echo $response->serverContext(); ?>/administration/languages/create">Създаване</a>
+                  <a class="dropdown-item" href="<?php echo $response->serverContext(); ?>/administration/languages/api/v1">Промяна / Изтриване</a>
+                </div>
+			</li>
+						
           </ul>
         </div>
       </nav>

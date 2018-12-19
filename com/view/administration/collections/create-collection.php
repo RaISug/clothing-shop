@@ -1,6 +1,8 @@
 <?php
 
-include_once 'com/view/administration/header.php';
+    include_once 'com/view/administration/header.php';
+    
+    $languages = $response->supportingEntity("languages");
 
 ?>
     <div style="margin-top: 100px" >
@@ -25,6 +27,21 @@ include_once 'com/view/administration/header.php';
     			<input class="col-sm-3 form-control-file images" type="file" name="collectionimage">
     		</div>
     		
+    		<div class="form-group row">
+                <label for="language" class="col-sm-2 col-form-label">Език</label>
+    			<select name="language_id" class="col-sm-10 form-control" id="language">
+
+        			<?php 
+        			foreach ($languages as $language) {
+        			    ?>
+        			    <option value="<?php echo $language->id(); ?>"><?php echo $language->name(); ?></option>
+        			    <?php
+        			}
+        			?>
+    				
+    			</select>
+			</div>
+			
     		<div class="form-group">
     			<button type="submit" class="btn btn-primary col-sm-6 offset-sm-3">Създай</button>
         	</div>

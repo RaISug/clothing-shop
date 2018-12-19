@@ -1,9 +1,14 @@
 <?php
     
+    use service\InternationalizationService;
+
     include 'com/view/header.php';
 
     $request = $response->request();
 	$products = $response->entity();
+
+    $internationalizationService = new InternationalizationService($response->language());
+    
 
 	if (count($products) !== 0) {
         ?>
@@ -13,19 +18,19 @@
     	    if ($request->getQueryParameter("insert") === "succeed") {
             ?>
             	<div id="success-alert" class="alert alert-success" role="alert">
-                	Продукта беше успешно добавен към вашата кошница.
+                	<?php echo $internationalizationService->get("cart_view_successfully_added_product"); ?>
                 </div>
             <?php
     	    } else if ($request->getQueryParameter("remove") === "succeed") {
             ?>
             	<div id="success-alert" class="alert alert-success" role="alert">
-                	Продукта беше успешно премахнат от вашата кошница.
+                	<?php echo $internationalizationService->get("cart_view_successfully_removed_product"); ?>
                 </div>
             <?php
     	    } else if ($request->getQueryParameter("decrement") === "succeed") {
             ?>
             	<div id="success-alert" class="alert alert-success" role="alert">
-                	Бройката на продукта беше успешно намалена.
+                	<?php echo $internationalizationService->get("cart_view_successfully_decremented_product_count"); ?>
                 </div>
             <?php
     	    }
@@ -33,10 +38,10 @@
     	    
     		<table>
     			<tr>
-    				<th>Продукт</th>
-    				<th style="text-align: center">Размер</th>
-    				<th style="padding-left:15px;">Количество</th>
-    				<th style="text-align: center">Цена</th>
+    				<th><?php echo $internationalizationService->get("cart_view_table_header_product"); ?></th>
+    				<th style="text-align: center"><?php echo $internationalizationService->get("cart_view_table_header_size"); ?></th>
+    				<th style="padding-left:15px;"><?php echo $internationalizationService->get("cart_view_table_header_quantity"); ?></th>
+    				<th style="text-align: center"><?php echo $internationalizationService->get("cart_view_table_header_price"); ?></th>
     				<th></th>
     			</tr>
     
@@ -97,7 +102,7 @@
         					<strong>
     							<?php
     								if ($product->promotionalPrice() == 0) {
-    								    echo $product->price(); 
+    								    echo $product->price() . " лв."; 
     								} else {
     		     					    ?>
     			
@@ -130,16 +135,16 @@
     		<div style="margin-top: 25px; min-width: 100%; background-color: #5a5a5a; color: white; height: 55px; border-radius: 3px;">
     			<div style="padding-top: 15px; padding-left: 15px; display: inline-block; font-size: 17px;">
     				<a href="<?php echo $response->serverContext(); ?>/products/api/v1" style="text-decoration: none; color: white;">
-    					<span class="fa fa-arrow-left"> Обратно към пазаруването</span>
+    					<span class="fa fa-arrow-left"> <?php echo $internationalizationService->get("cart_view_back_to_shopping"); ?></span>
     				</a>
     			</div>
     			<div style="margin-right: 5px; padding-top: 15px; display: inline-block; float: right; font-size: 17px;">
     				<a href="<?php echo $response->serverContext(); ?>/orders/api/v1" style="text-decoration: none; color: white;">
-    					<b> Завърши поръчката <span class="fa fa-arrow-right"></span></b>
+    					<b> <?php echo $internationalizationService->get("cart_view_finish_shopping"); ?> <span class="fa fa-arrow-right"></span></b>
     				</a>
     			</div>
     			<div style="margin-right: 25px; padding-top: 10px; float: right;">
-    				Общо: <b style="font-size: 22px;"><?php echo $amount; ?></b> лв.
+    				<span class="fa fa-arrow-left"> <?php echo $internationalizationService->get("cart_view_total"); ?>: </span><b style="font-size: 22px;"><?php echo $amount; ?></b> лв.
     			</div>
     		</div>
     	</div>
@@ -151,20 +156,20 @@
     	    if ($request->getQueryParameter("remove") === "succeed") {
             ?>
             	<div id="success-alert" class="alert alert-success" role="alert">
-                	Продукта беше успешно премахнат от вашата кошница.
+                	<?php echo $internationalizationService->get("cart_view_successfully_removed_product"); ?>
                 </div>
             <?php
     	    } else if ($request->getQueryParameter("decrement") === "succeed") {
             ?>
             	<div id="success-alert" class="alert alert-success" role="alert">
-                	Бройката на продукта беше успешно намалена.
+                	<?php echo $internationalizationService->get("cart_view_successfully_decremented_product_count"); ?>
                 </div>
             <?php
     	    }
     	    ?>
     	    
     	    <div class="alert alert-primary" role="alert">
-            	Няма добавени продукти в количката!
+            	<?php echo $internationalizationService->get("cart_view_empty_cart"); ?>
             </div>
         </div>
 	    <?php

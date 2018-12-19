@@ -1,7 +1,10 @@
 <?php 
 
+    use service\InternationalizationService;
+
     include 'com/view/header.php';
 
+    $internationalizationService = new InternationalizationService($response->language());
 ?>
 
 	<div class="album py-5 bg-light">
@@ -13,7 +16,7 @@
           	    if ($request->getQueryParameter("insert") === "succeed") {
           	        ?>
           	        	<div id="success-alert" class="alert alert-success" role="alert">
-                        	Продукта беше успешно добавен към вашата кошница.
+                        	<?php echo $internationalizationService->get("product_view_successfully_added_product_message"); ?>
                         </div>
           	        <?php
           	    }
@@ -32,11 +35,11 @@
                     		
                     		<div class="card-body">
     							<br>
-                        		Име: <?php echo $product->name(); ?>
+                        		<?php echo $internationalizationService->get("products_view_product_name_label"); ?>: <?php echo $product->name(); ?>
     							<br>
-                        		Тип: <?php if ($product->type() === "male") { echo "Мъжки"; } else { echo "Дамски"; } ?>
+                        		<?php echo $internationalizationService->get("products_view_product_type_label"); ?>: <?php if ($product->type() === "male") { echo "Мъжки"; } else { echo "Дамски"; } ?>
     							<br>                            		
-                        		Категория: <?php echo $product->category(); ?>
+                        		<?php echo $internationalizationService->get("products_view_product_category_label"); ?>: <?php echo $product->category(); ?>
     							<br>                            		
     
                       			<div class="d-flex justify-content-between align-items-center">

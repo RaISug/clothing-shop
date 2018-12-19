@@ -1,16 +1,19 @@
 <?php
 
+    use service\InternationalizationService;
+
     include_once 'header.php';
     include_once 'carousel.php';
 
     $collections = $response->supportingEntity("collections");
 
+    $internationalizationService = new InternationalizationService($response->language());
 ?>
 
 	<div class="container marketing">
 
     	<div align="center">
-			<h2 style="text-align: center">Колекции</h2>
+			<h2 style="text-align: center"><?php echo $internationalizationService->get("home_view_collections"); ?></h2>
     	</div>
 
         <hr class="featurette-divider">
@@ -29,10 +32,10 @@
                           	
                           	<div class="col-md-5">
                           		<div style="height: 500px; max-height: 500px; overflow: hidden;">
-                    				<div class="CategoryImageName" data-href="products/api/v1/category/saka">
+                    				<div class="CategoryImageName" data-href="<?php echo $response->serverContext(); ?>/products/api/v1/collection/<?php echo $collection->technicalName(); ?>">
                     					<a style="position: relative;  top: 40%; text-decoration: none; color:white;"><?php echo $collection->titleName(); ?></a>
                     				</div>
-                    				<img class="CategoryImage" src="<?php echo $collection->imageName(); ?>" alt="<?php echo $collection->titleName(); ?>">
+                    				<img class="CategoryImage" src="<?php echo $response->imagesContext(); ?>/collections/<?php echo $collection->imageName(); ?>" alt="<?php echo $collection->titleName(); ?>">
                     			</div>
                       		</div>
                         </div>
@@ -47,10 +50,10 @@
                           	
                           	<div class="col-md-5 order-md-1">
                 				<div style="height: 500px; max-height: 500px; overflow: hidden;">
-                    				<div class="CategoryImageName" data-href="products/api/v1/category/saka">
+                    				<div class="CategoryImageName" data-href="<?php echo $response->serverContext(); ?>/products/api/v1/collection/<?php echo $collection->technicalName(); ?>">
                     					<a style="position: relative;  top: 40%; text-decoration: none; color:white;"><?php echo $collection->titleName(); ?></a>
                     				</div>
-                    				<img class="CategoryImage" src="<?php echo $response->serverContext(); ?>/../images/collections/<?php echo $collection->imageName(); ?>" alt="<?php echo $collection->titleName(); ?>">
+                    				<img class="CategoryImage" src="<?php echo $response->imagesContext(); ?>/collections/<?php echo $collection->imageName(); ?>" alt="<?php echo $collection->titleName(); ?>">
                     			</div>
                           	</div>
                         </div>

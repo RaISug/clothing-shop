@@ -42,6 +42,7 @@ class CategoriesRetrievalFilter implements ResponseFilter {
         }
         
         $response = (new ResponseBuilder())
+                        ->withLanguage($response->language())
                         ->withRequest($response->request())
                         ->withEntity($response->entity())
                         ->withStatusCode($response->statusCode())

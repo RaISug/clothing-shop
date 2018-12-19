@@ -11,6 +11,7 @@ class ResponseBuilder {
     private $supportingEntities;
     private $contentType;
     private $request;
+    private $language;
 
     public function __construct() {
         $this->headers = array();
@@ -71,8 +72,14 @@ class ResponseBuilder {
         return $this;
     }
 
+    public function withLanguage($language) {
+        $this->language = $language;
+
+        return $this;
+    }
+
     public function build() {
-        return new Response($this->statusCode, $this->entity, $this->supportingEntities, $this->headers, $this->contentType, $this->request);
+        return new Response($this->statusCode, $this->entity, $this->supportingEntities, $this->headers, $this->contentType, $this->request, $this->language);
     }
 
 }

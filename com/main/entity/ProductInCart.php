@@ -62,6 +62,10 @@ class ProductInCart {
         return $this->product->promotionalPrice();
     }
     
+    public function languageId() {
+        return $this->product->languageId();
+    }
+
     public function availableSizes() {
         return $this->product->availableSizes();
     }

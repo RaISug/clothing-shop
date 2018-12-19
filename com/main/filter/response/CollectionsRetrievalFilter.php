@@ -19,7 +19,7 @@ class CollectionsRetrievalFilter implements ResponseFilter {
     public function canHandle(Request $request, Response $response) {
         return $request->isGETRequest() && 
                     ($request->getPath() === "/administration/collections/add/products"
-                        || strpos($request->getPath(), "/administration/") == false);
+                        || strpos($request->getPath(), "/administration/") === false);
     }
     
     public function filter(Response &$response) {
@@ -36,6 +36,7 @@ class CollectionsRetrievalFilter implements ResponseFilter {
         }
 
         $response = (new ResponseBuilder())
+                            ->withLanguage($response->language())
                             ->withRequest($response->request())
                             ->withEntity($response->entity())
                             ->withRequest($response->request())
