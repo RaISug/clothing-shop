@@ -31,7 +31,7 @@ class Response {
         return $this->supportingEntities;
     }
 
-    public function supportingEntity(string $key) {
+    public function supportingEntity($key) {
         return $this->supportingEntities[$key];
     }
 
@@ -47,8 +47,8 @@ class Response {
         return $this->headers[$name];
     }
 
-    public function redirectTo(string $location) {
-        header("Location:http://localhost/com.radoslav.web.shop/t.php" . $location);
+    public function redirectTo($location) {
+        header("Location:http://localhost" . $this->serverContext() . $location);
     }
 
     public function serverContext() {

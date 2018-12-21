@@ -16,7 +16,7 @@ class ProductRepository {
         $this->sessionService = new SessionService();
     }
 
-    public function all(int &$page, int &$offset, $orderBy, $orderingType) {
+    public function all(&$page, &$offset, $orderBy, $orderingType) {
         $connection = $this->connectionFactory->create();
 
         $language = $this->getLanguage();
@@ -60,7 +60,7 @@ class ProductRepository {
         return $query->fetch_assoc()['products_count'];
     }
 
-    public function countOfItemsInCategory(string $category) {
+    public function countOfItemsInCategory($category) {
         $connection = $this->connectionFactory->create();
 
         $language = $this->getLanguage();
@@ -77,7 +77,7 @@ class ProductRepository {
         return $statement->get_result()->fetch_assoc()['products_count'];
     }
     
-    public function countOfItemsInType(string $type) {
+    public function countOfItemsInType($type) {
         $connection = $this->connectionFactory->create();
         
         $language = $this->getLanguage();
@@ -94,7 +94,7 @@ class ProductRepository {
         return $statement->get_result()->fetch_assoc()['products_count'];
     }
 
-    public function countOfItemsInCollection(string $collection) {
+    public function countOfItemsInCollection($collection) {
         $connection = $this->connectionFactory->create();
         
         $language = $this->getLanguage();
@@ -111,7 +111,7 @@ class ProductRepository {
         return $statement->get_result()->fetch_assoc()['products_count'];
     }
 
-    public function countOfItemsForTypeInCategory(string $type, string $category) {
+    public function countOfItemsForTypeInCategory($type, $category) {
         $connection = $this->connectionFactory->create();
         
         $language = $this->getLanguage();
@@ -128,7 +128,7 @@ class ProductRepository {
         return $statement->get_result()->fetch_assoc()['products_count'];
     }
 
-    public function byId(int $id) {
+    public function byId($id) {
         $connection = $this->connectionFactory->create();
         
         $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id WHERE p.ID = ?");
@@ -170,7 +170,7 @@ class ProductRepository {
         call_user_func_array([$statement, 'bind_param'], $parameters);
     }
 
-    public function byType(string $type, int &$page, int &$offset, $orderBy, $orderingType) {
+    public function byType($type, &$page, &$offset, $orderBy, $orderingType) {
         $connection = $this->connectionFactory->create();
 
         $language = $this->getLanguage();
@@ -197,7 +197,7 @@ class ProductRepository {
         return $statement->get_result();
     }
 
-    public function byCategory(string $category, int &$page, int &$offset, $orderBy, $orderingType) {
+    public function byCategory($category, &$page, &$offset, $orderBy, $orderingType) {
         $connection = $this->connectionFactory->create();
 
         $language = $this->getLanguage();
@@ -224,7 +224,7 @@ class ProductRepository {
         return $statement->get_result();
     }
 
-    public function byCollection(string $collection, int &$page, int &$offset, $orderBy, $orderingType) {
+    public function byCollection($collection, &$page, &$offset, $orderBy, $orderingType) {
         $connection = $this->connectionFactory->create();
         
         $language = $this->getLanguage();
@@ -251,7 +251,7 @@ class ProductRepository {
         return $statement->get_result();
     }
 
-    public function byTypeAndCategory(string $type, string $category, int &$page, int &$offset, $orderBy, $orderingType) {
+    public function byTypeAndCategory($type, $category, &$page, &$offset, $orderBy, $orderingType) {
         $connection = $this->connectionFactory->create();
 
         $language = $this->getLanguage();
@@ -302,7 +302,7 @@ class ProductRepository {
         }
     }
 
-    public function deleteById(int $id) {
+    public function deleteById($id) {
         $connection = $this->connectionFactory->create();
 
         $statement = $connection->prepare("DELETE FROM products WHERE ID = ?");

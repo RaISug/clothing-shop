@@ -11,7 +11,7 @@ class Request {
         return $this->getPathInfo();
     }
 
-    public function getPathParameter(string $paramName) {
+    public function getPathParameter($paramName) {
         $requestURI = $this->getPathInfo();
 
         $pathParams = explode("/", $requestURI);
@@ -28,7 +28,7 @@ class Request {
         return $_SERVER['PATH_INFO'];
     }
 
-    public function getQueryParameter(string $name) {
+    public function getQueryParameter($name) {
         return $_GET[$name];
     }
 
@@ -40,15 +40,15 @@ class Request {
         return file_get_contents("php://input");
     }
 
-    public function getFile(string $name) {
+    public function getFile($name) {
         return new File($_FILES[$name]);
     }
 
-    public function getFiles(string $name) {
+    public function getFiles($name) {
         return new Files($this->getFilesAsArray($name));
     }
 
-    private function getFilesAsArray(string $name) {
+    private function getFilesAsArray($name) {
         $keys = array_keys($_FILES[$name]);
 
         $files = array();
@@ -61,7 +61,7 @@ class Request {
         return $files;
     }
 
-    public function getParameter(string $name) {
+    public function getParameter($name) {
         if ($this->isPOSTRequest()) {
             return $_POST[$name];
         }
@@ -69,7 +69,7 @@ class Request {
         return $_GET[$name];
     }
 
-    public function getMultiValueParameterAsStringDelimitedWithSemicolon(string $name) {
+    public function getMultiValueParameterAsStringDelimitedWithSemicolon($name) {
         $result = "";
 
         $values = $this->getParameter($name);

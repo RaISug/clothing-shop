@@ -90,7 +90,7 @@ class Product {
         return explode(";", $this->availableSizes);
     }
 
-    public function hasSize(string $size) {
+    public function hasSize($size) {
         if ($this->availableSizes === "") {
             return false;
         }

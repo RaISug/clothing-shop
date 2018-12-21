@@ -26,15 +26,15 @@ class SessionService {
         return $_SESSION['user'] == null;
     }
 
-    public function getAttribute(string $name) {
+    public function getAttribute($name) {
         return $_SESSION[$name];
     }
 
-    public function setAttribute(string $name, $value) {
+    public function setAttribute($name, $value) {
         $_SESSION[$name] = $value;
     }
 
-    public function removeAttribute(string $name) {
+    public function removeAttribute($name) {
         unset($_SESSION[$name]);
     }
 

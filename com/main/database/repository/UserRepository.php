@@ -25,7 +25,7 @@ class UserRepository {
         }
     }
 
-    public function byUsernameAndPassword(string $username, string $password) {
+    public function byUsernameAndPassword($username, $password) {
         $connection = $this->connectionFactory->create();
 
         $statement = $connection->prepare("SELECT * FROM users WHERE USERNAME = ? AND PASSWORD = ?");

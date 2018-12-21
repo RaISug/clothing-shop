@@ -8,7 +8,7 @@ use file\Files;
 
 class FileService {
 
-    public function uploadFilesInto(Files $files, string $directory) {
+    public function uploadFilesInto(Files $files, $directory) {
         while ($files->hasMore()) {
             $file = $files->next();
 
@@ -16,7 +16,7 @@ class FileService {
         }
     }
 
-    public function uploadFileInto(File $file, string $directory) {
+    public function uploadFileInto(File $file, $directory) {
         $result = move_uploaded_file($file->getTemporalName(), $directory . "/" . $file->getUniqueName());
 
         if ($result === FALSE) {
@@ -24,13 +24,13 @@ class FileService {
         }
     }
     
-    public function deleteFilesFrom($filenames, string $directory) {
+    public function deleteFilesFrom($filenames, $directory) {
         foreach ($filenames as $filename) {
             $this->deleteFileFrom($filename, $directory);
         }
     }
 
-    private function deleteFileFrom($filename, string $directory) {
+    private function deleteFileFrom($filename, $directory) {
         if (strlen($filename) === 0) {
             return;
         }

@@ -43,7 +43,7 @@ class CollectionRepository {
         }
     }
     
-    public function deleteById(int $id) {
+    public function deleteById($id) {
         $connection = $this->connectionFactory->create();
         
         $statement = $connection->prepare("DELETE FROM collections WHERE id = ?");
@@ -55,7 +55,7 @@ class CollectionRepository {
         }
     }
 
-    public function addProductToCollection(int $productId, int $collectionId) {
+    public function addProductToCollection($productId, $collectionId) {
         $connection = $this->connectionFactory->create();
         
         $statement = $connection->prepare("INSERT INTO products_to_collections_mapping (product_id, collection_id) VALUES (?, ?)");

@@ -74,7 +74,7 @@ class ProductInCart {
         return $this->product->availableSizesAsArray();
     }
     
-    public function hasSize(string $size) {
+    public function hasSize($size) {
         return $this->product->hasSize($size);
     }
     

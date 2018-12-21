@@ -25,7 +25,7 @@ class OrderRepository {
         }
     }
 
-    public function byId(int $id) {
+    public function byId($id) {
         $connection = $this->connectionFactory->create();
         
         $statement = $connection->prepare("SELECT * FROM orders WHERE id = ?");
@@ -37,7 +37,7 @@ class OrderRepository {
         return $statement->get_result();
     }
 
-    public function all(int &$page, int &$offset, $orderBy, $orderingType) {
+    public function all(&$page, &$offset, $orderBy, $orderingType) {
         $connection = $this->connectionFactory->create();
         
         if ($orderBy === null) {
@@ -55,7 +55,7 @@ class OrderRepository {
         return $statement->get_result();
     }
     
-    public function onlyNotProcessed(int &$page, int &$offset, $orderBy, $orderingType) {
+    public function onlyNotProcessed(&$page, &$offset, $orderBy, $orderingType) {
         $connection = $this->connectionFactory->create();
         
         if ($orderBy === null) {
@@ -73,7 +73,7 @@ class OrderRepository {
         return $statement->get_result();
     }
     
-    public function onlyNotProcessedBetweenDatetimes($from, $to, int &$page, int &$offset, $orderBy, $orderingType) {
+    public function onlyNotProcessedBetweenDatetimes($from, $to, &$page, &$offset, $orderBy, $orderingType) {
         $connection = $this->connectionFactory->create();
         
         if ($orderBy === null) {
@@ -91,7 +91,7 @@ class OrderRepository {
         return $statement->get_result();
     }
     
-    public function onlyNotProcessedInDate($date, int &$page, int &$offset, $orderBy, $orderingType) {
+    public function onlyNotProcessedInDate($date, &$page, &$offset, $orderBy, $orderingType) {
         $connection = $this->connectionFactory->create();
         
         if ($orderBy === null) {
@@ -117,7 +117,7 @@ class OrderRepository {
         return $query->fetch_assoc()['orders_count'];
     }
     
-    public function markAsNotProcessed(int $id) {
+    public function markAsNotProcessed($id) {
         $connection = $this->connectionFactory->create();
         
         $statement = $connection->prepare("UPDATE orders SET is_processed = 0 WHERE id = ?");
@@ -137,7 +137,7 @@ class OrderRepository {
         return $query->fetch_assoc()['orders_count'];
     }
     
-    public function onlyProcessedBetweenDatetimes($from, $to, int &$page, int &$offset, $orderBy, $orderingType) {
+    public function onlyProcessedBetweenDatetimes($from, $to, &$page, &$offset, $orderBy, $orderingType) {
         $connection = $this->connectionFactory->create();
         
         if ($orderBy === null) {
@@ -155,7 +155,7 @@ class OrderRepository {
         return $statement->get_result();
     }
     
-    public function onlyProcessedInDate($date, int &$page, int &$offset, $orderBy, $orderingType) {
+    public function onlyProcessedInDate($date, &$page, &$offset, $orderBy, $orderingType) {
         $connection = $this->connectionFactory->create();
         
         if ($orderBy === null) {
@@ -173,7 +173,7 @@ class OrderRepository {
         return $statement->get_result();
     }
 
-    public function onlyProcessed(int &$page, int &$offset, $orderBy, $orderingType) {
+    public function onlyProcessed(&$page, &$offset, $orderBy, $orderingType) {
         $connection = $this->connectionFactory->create();
         
         if ($orderBy === null) {
@@ -191,7 +191,7 @@ class OrderRepository {
         return $statement->get_result();
     }
 
-    public function markAsProcessed(int $id) {
+    public function markAsProcessed($id) {
         $connection = $this->connectionFactory->create();
         
         $statement = $connection->prepare("UPDATE orders SET is_processed = 1 WHERE id = ?");
@@ -203,7 +203,7 @@ class OrderRepository {
         }
     }
 
-    public function deleteById(int $id) {
+    public function deleteById($id) {
         $connection = $this->connectionFactory->create();
 
         $statement = $connection->prepare("DELETE FROM orders WHERE id = ?");

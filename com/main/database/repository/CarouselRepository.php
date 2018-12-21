@@ -43,7 +43,7 @@ class CarouselRepository {
         }
     }
 
-    public function deleteById(int $id) {
+    public function deleteById($id) {
         $connection = $this->connectionFactory->create();
         
         $statement = $connection->prepare("DELETE FROM carousel WHERE id = ?");
@@ -55,7 +55,7 @@ class CarouselRepository {
         }
     }
     
-    public function byId(int $id) {
+    public function byId($id) {
         $connection = $this->connectionFactory->create();
         
         $statement = $connection->prepare("SELECT * FROM carousel WHERE id = ?");

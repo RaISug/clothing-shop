@@ -65,7 +65,7 @@ class CategoryRepository {
         }
     }
 
-    public function deleteById(int $id) {
+    public function deleteById($id) {
         $connection = $this->connectionFactory->create();
         
         $statement = $connection->prepare("DELETE FROM categories WHERE id = ?");

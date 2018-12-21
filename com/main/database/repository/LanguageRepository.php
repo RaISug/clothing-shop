@@ -37,7 +37,7 @@ class LanguageRepository {
         return $connection->query("SELECT * FROM languages WHERE is_default = 1");
     }
 
-    public function byName(string $name) {
+    public function byName($name) {
         $connection = $this->connectionFactory->create();
 
         $statement = $connection->prepare("SELECT * FROM languages WHERE name = ?");
@@ -49,7 +49,7 @@ class LanguageRepository {
         return $statement->get_result();
     }
 
-    public function byId(int $id) {
+    public function byId($id) {
         $connection = $this->connectionFactory->create();
         
         $statement = $connection->prepare("SELECT * FROM languages WHERE id = ?");
@@ -61,7 +61,7 @@ class LanguageRepository {
         return $statement->get_result();
     }
 
-    public function deleteById(int $id) {
+    public function deleteById($id) {
         $connection = $this->connectionFactory->create();
         
         $statement = $connection->prepare("DELETE FROM languages WHERE id = ?");

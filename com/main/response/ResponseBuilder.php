@@ -30,7 +30,7 @@ class ResponseBuilder {
         return $this;
     }
 
-    public function withSupportingEntity(string $key, $entity) {
+    public function withSupportingEntity($key, $entity) {
         $this->supportingEntities[$key] = $entity;
 
         return $this;
