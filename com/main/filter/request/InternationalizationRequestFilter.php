@@ -50,7 +50,7 @@ class InternationalizationRequestFilter implements RequestFilter {
     }
 
     private function retrieveDefaultLanguage() {
-        $dbResponse = $this->repository->default();
+        $dbResponse = $this->repository->defaultLanguages();
         if ($dbResponse->num_rows === 0) {
             throw new InternalServerErrorException("There is no default language.");
         }

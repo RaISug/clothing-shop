@@ -31,7 +31,7 @@ class LanguageRepository {
         }
     }
 
-    public function default() {
+    public function defaultLanguages() {
         $connection = $this->connectionFactory->create();
         
         return $connection->query("SELECT * FROM languages WHERE is_default = 1");
