@@ -30,7 +30,7 @@
     			<textarea rows="15" class="col-sm-10 form-control" id="bundle" form="language-form" name="bundle"><?php 
     				    $properties = $internationalizationService->loadProperties();
     				    foreach ($properties as $key => $value) {
-    				        echo $key . " = " . $value . "\n";
+    				        echo $key . " = \"" . $value . "\"\n";
     				    }
     				?></textarea>
     		</div>
