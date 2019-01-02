@@ -182,6 +182,16 @@ use controller\UpdateLanguageController;
 
 error_reporting(E_ERROR);
 
+function errorHandler($errorLevel, $errorMessage, $errorFile, $errorLine, $errorContext) {
+    $file = fopen("logs.log", "a");
+    
+    fwrite($file, "#" . date("Y/m/d h:i:sa") . "# Error number: [" . $errorLevel . "] error message : [" . $errorMessage ."] error file : [" . $errorFile . "] error line : [" . $errorLine. "] error context : [ " . $errorContext . "]");
+    
+    fclose($file);
+}
+
+set_error_handler("errorHandler");
+
 $request = new Request();
 
 $requestFilters = array(
@@ -269,13 +279,5 @@ try {
 
     echo $exception->errorMessage();
 }
-
-// $file = fopen("logs.log", "w");
-
-// fwrite($file, "test");
-
-// fclose($file);
-
-
 
 ?>
