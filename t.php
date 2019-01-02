@@ -180,6 +180,8 @@ use filter\InternationalizationRequestFilter;
 use controller\ListSingleLanguageController;
 use controller\UpdateLanguageController;
 
+error_reporting(E_ERROR);
+
 $request = new Request();
 
 $requestFilters = array(

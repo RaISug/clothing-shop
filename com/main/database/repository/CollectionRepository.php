@@ -36,7 +36,7 @@ class CollectionRepository {
         
         $statement = $connection->prepare("INSERT INTO collections (image_name, title_name, description, technical_name, language_id) VALUES (?, ?, ?, ?, ?)");
         
-        $statement->bind_param("ssss", $collection->imageName(), $collection->titleName(), $collection->description(), $collection->technicalName(), $collection->languageId());
+        $statement->bind_param("ssssi", $collection->imageName(), $collection->titleName(), $collection->description(), $collection->technicalName(), $collection->languageId());
         
         if ($statement->execute() === FALSE) {
             throw new InternalServerErrorException("Failed to create collection");
