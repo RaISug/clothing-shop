@@ -14,13 +14,15 @@
         	      	<div class="product col-sm-3">
             			<img src="<?php echo $response->serverContext(); ?>/../images/<?php echo $product->getFirstImageName(); ?>" alt="Smiley face" style="height: 250px; margin-top: 10px;">
 						<br>
-                		Name: <?php echo $product->name(); ?>
+                		Име на продукта : <?php echo $product->name(); ?>
 						<br>
-                		Type: <?php echo $product->type(); ?>
-						<br>                            		
-                		Category: <?php echo $product->category(); ?>
-						<br>                            		
-                		Price: <?php echo $product->price(); ?>lv
+                		Тип на продукта: <?php echo $product->type(); ?>
+						<br>
+                		Категория: <?php echo $product->category(); ?>
+						<br>
+                		Език: <?php echo $product->language(); ?>
+						<br>
+                		Цена: <?php echo $product->price(); ?>lv
                 		<div style="margin-top: 10px;">
                 			<form action="<?php echo $response->serverContext(); ?>/administration/products/api/v1/product/<?php echo $product->id(); ?>">
                 				<input class="btn btn-primary col-sm-12" style="margin-bottom: 10px" type="submit" value="Update">

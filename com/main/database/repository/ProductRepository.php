@@ -22,15 +22,15 @@ class ProductRepository {
         $language = $this->getLanguage();
         if ($language === null) {
             if ($orderBy === null) {
-                $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id LIMIT ?,?");
+                $statement = $connection->prepare("SELECT p.*, c.name as category, l.name as language FROM products p JOIN categories c ON p.category_id = c.id JOIN languages l ON l.id = p.language_id LIMIT ?,?");
             } else {
-                $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id ORDER BY p." . $orderBy . " " . $orderingType . " LIMIT ?,?");
+                $statement = $connection->prepare("SELECT p.*, c.name as category, l.name as language FROM products p JOIN categories c ON p.category_id = c.id JOIN languages l ON l.id = p.language_id ORDER BY p." . $orderBy . " " . $orderingType . " LIMIT ?,?");
             }
         } else {
             if ($orderBy === null) {
-                $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id AND p.language_id = " . $language->id() . " LIMIT ?,?");
+                $statement = $connection->prepare("SELECT p.*, c.name as category, l.name as language FROM products p JOIN categories c ON p.category_id = c.id JOIN languages l ON l.id = p.language_id AND p.language_id = " . $language->id() . " LIMIT ?,?");
             } else {
-                $statement = $connection->prepare("SELECT p.*, c.name as category FROM products p JOIN categories c ON p.category_id = c.id AND p.language_id = " . $language->id() . " ORDER BY p." . $orderBy . " " . $orderingType . " LIMIT ?,?");
+                $statement = $connection->prepare("SELECT p.*, c.name as category, l.name as language FROM products p JOIN categories c ON p.category_id = c.id JOIN languages l ON l.id = p.language_id AND p.language_id = " . $language->id() . " ORDER BY p." . $orderBy . " " . $orderingType . " LIMIT ?,?");
             }
         }
 

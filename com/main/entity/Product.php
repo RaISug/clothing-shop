@@ -14,6 +14,7 @@ class Product {
     private $description;
     private $promotionalPrice;
     private $availableSizes;
+    private $language;
     private $languageId;
 
     public function __construct($data) {
@@ -27,6 +28,7 @@ class Product {
         $this->description = $data['description'];
         $this->promotionalPrice = $data['promotional_price'];
         $this->availableSizes = $data['available_sizes'];
+        $this->language = $data['language'];
         $this->languageId = $data['language_id'];
     }
 
@@ -76,6 +78,10 @@ class Product {
     
     public function promotionalPrice() {
         return $this->promotionalPrice;
+    }
+    
+    public function language() {
+        return $this->language;
     }
 
     public function languageId() {
