@@ -47,7 +47,7 @@ class DeleteCarouselController extends Controller {
     }
 
     public function display(Response $response) {
-        $response->redirectTo("/administration/carousels/api/v1");
+        $response->redirectTo("/administration/carousels/api/v1?operation-delete=succeed");
     }
     
 }

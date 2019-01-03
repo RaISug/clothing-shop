@@ -29,7 +29,7 @@ class CreateUserController extends Controller {
     }
 
     public function display(Response $response) {
-        $response->redirectTo("/administration/users/create");
+        $response->redirectTo("/administration/users/create?operation-create=succeed");
     }
 
 }

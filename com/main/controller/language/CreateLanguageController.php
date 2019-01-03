@@ -41,7 +41,7 @@ class CreateLanguageController extends Controller {
     }
 
     public function display(Response $response) {
-        $response->redirectTo("/administration/languages/create");
+        $response->redirectTo("/administration/languages/create?operation-create=succeed");
     }
     
 }

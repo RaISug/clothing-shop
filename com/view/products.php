@@ -61,10 +61,10 @@
                                 		?>
                         			</div>
                         			
-                        			<small class="text-muted">
+                        			<small class="text-muted" style="font-size: 18px">
         								<?php
             								if ($product->promotionalPrice() == 0) {
-            								    echo $product->price(); 
+            								    echo $product->price() . " лв."; 
             								} else {
         			     					    ?>
         				

@@ -40,7 +40,7 @@ class CreateCollectionController extends Controller {
     }
     
     public function display(Response $response) {
-        $response->redirectTo("/administration/collections/add/products");
+        $response->redirectTo("/administration/collections/add/products?operation-create=succeed");
     }
     
 }

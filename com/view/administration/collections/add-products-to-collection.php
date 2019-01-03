@@ -4,9 +4,28 @@
     
     $collections = $response->supportingEntity("collections");
 
+    $request = $response->request();
+
 ?>
 
     <div class="container" style="margin-top: 100px; margin-bottom: 50px;">
+    
+    	<?php
+  		if ($request->getQueryParameter("operation-add") === "succeed") {
+  	        ?>
+  	        	<div id="success-alert" class="alert alert-success" role="alert">
+                	Успешно създадохте каросела.
+                </div>
+  	        <?php
+  	    } else if ($request->getQueryParameter("operation-create") === "succeed") {
+  	        ?>
+  	        	<div id="success-alert" class="alert alert-success" role="alert">
+                	Успешно създадохте колекцията.
+                </div>
+  	        <?php
+  	    }
+        ?>
+
   		<div class="row">
     	  	<?php
         	  $pagination = $response->entity();

@@ -2,8 +2,21 @@
 
     include_once 'com/view/administration/header.php';
 
+    $request = $response->request();
+
 ?>
     <div style="margin-top: 100px" >
+    	
+    	<?php
+  		if ($request->getQueryParameter("operation-create") === "succeed") {
+  	        ?>
+  	        	<div id="success-alert" class="alert alert-success" role="alert">
+                	Успешно създадохте нов потребител.
+                </div>
+  	        <?php
+  	    }
+        ?>
+
     	<form action="<?php echo $response->serverContext(); ?>/administration/users/api/v1" method="POST">
     		<div class="form-group row">
             	<label for="username" class="col-sm-3 col-form-label">Входно име на потребителя</label>

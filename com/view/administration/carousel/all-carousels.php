@@ -2,8 +2,21 @@
 
     include_once 'com/view/administration/header.php';
 
+    $request = $response->request();
+
 ?>
     <div class="container" style="margin-top: 100px; margin-bottom: 50px;">
+    
+    	<?php
+  		if ($request->getQueryParameter("operation-delete") === "succeed") {
+  	        ?>
+  	        	<div id="success-alert" class="alert alert-success" role="alert">
+                	Успешно изтрихте каросела.
+                </div>
+  	        <?php
+  	    }
+        ?>
+
   		<div class="row">
     	  	<?php
         	  $pagination = $response->entity();

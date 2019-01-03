@@ -2,10 +2,22 @@
 
     include_once 'com/view/administration/header.php';
 
+    $request = $response->request();
     $languages = $response->supportingEntity("languages");
 
 ?>
     <div style="margin-top: 100px" >
+    	
+    	<?php
+  		if ($request->getQueryParameter("operation-create") === "succeed") {
+  	        ?>
+  	        	<div id="success-alert" class="alert alert-success" role="alert">
+                	Успешно създадохте каросела.
+                </div>
+  	        <?php
+  	    }
+        ?>
+    	
     	<form id="carousel-form" action="<?php echo $response->serverContext(); ?>/administration/carousels/api/v1" method="POST" enctype="multipart/form-data">
           	
     		<div class="form-group row">

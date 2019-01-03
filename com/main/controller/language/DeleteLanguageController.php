@@ -26,7 +26,7 @@ class DeleteLanguageController extends Controller {
     }
     
     public function display(Response $response) {
-        $response->redirectTo("/administration/languages/api/v1");
+        $response->redirectTo("/administration/languages/api/v1?operation-delete=succeed");
     }
     
 }

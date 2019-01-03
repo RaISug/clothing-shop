@@ -40,7 +40,7 @@ class CreateProductController extends Controller {
     }
 
     public function display(Response $response) {
-        $response->redirectTo("/administration/products/create");
+        $response->redirectTo("/administration/products/create?operation-create=succeed");
     }
 
 }

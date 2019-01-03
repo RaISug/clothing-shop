@@ -36,8 +36,7 @@ class SimpleController extends Controller {
             "/administration/categories/create" => "com/view/administration/category/create-category.php",
             "/administration/products/create" => "com/view/administration/products/create-product.php",
             "/administration/carousels/create" => "com/view/administration/carousel/create-carousel.php",
-            "/administration/languages/create" => "com/view/administration/language/create-language.php",
-            "/administration/bundles/create" => "com/view/administration/bundles/create-bundle.php",
+            "/administration/languages/create" => "com/view/administration/language/create-language.php"
         );
 
         $viewPath = $pathToViewMappings[$this->requestPath];

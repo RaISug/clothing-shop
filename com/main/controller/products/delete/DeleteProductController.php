@@ -47,7 +47,7 @@ class DeleteProductController extends Controller {
     }
 
     public function display(Response $response) {
-        $response->redirectTo("/administration/products/api/v1");
+        $response->redirectTo("/administration/products/api/v1?operation-delete=succeed");
     }
 
 }

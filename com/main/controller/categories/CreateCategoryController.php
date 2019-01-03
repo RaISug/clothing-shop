@@ -31,7 +31,7 @@ class CreateCategoryController extends Controller {
     }
     
     public function display(Response $response) {
-        $response->redirectTo("/administration/categories/create");
+        $response->redirectTo("/administration/categories/create?operation-create=succeed");
     }
     
 }

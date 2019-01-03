@@ -26,7 +26,7 @@ class DeleteCollectionController extends Controller {
     }
 
     public function display(Response $response) {
-        $response->redirectTo("/administration/collections/api/v1");
+        $response->redirectTo("/administration/collections/api/v1?operation-delete=succeed");
     }
     
 }

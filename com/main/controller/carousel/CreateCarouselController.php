@@ -40,7 +40,7 @@ class CreateCarouselController extends Controller {
     }
     
     public function display(Response $response) {
-        $response->redirectTo("/administration/carousels/create");
+        $response->redirectTo("/administration/carousels/create?operation-create=succeed");
     }
     
 }

@@ -2,12 +2,23 @@
 
     include_once 'com/view/administration/header.php';
 
+    $request = $response->request();
     $categories = $response->supportingEntity("categories");
     $languages = $response->supportingEntity("languages");
     
 ?>
 
 	<div style="margin-top: 80px">
+		
+		<?php
+  		if ($request->getQueryParameter("operation-create") === "succeed") {
+  	        ?>
+  	        	<div id="success-alert" class="alert alert-success" role="alert">
+                	Успешно създадохте продукта.
+                </div>
+  	        <?php
+  	    }
+        ?>
 
 		<?php
 		if (isset($languages) == false || count($languages) == 0) {

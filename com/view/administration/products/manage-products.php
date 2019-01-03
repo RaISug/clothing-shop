@@ -2,9 +2,28 @@
 
     include_once 'com/view/administration/header.php';
 
+    $request = $response->request();
+
 ?>
 
     <div class="container" style="margin-top: 100px; margin-bottom: 50px;">
+    
+    	<?php
+  		if ($request->getQueryParameter("operation-delete") === "succeed") {
+  	        ?>
+  	        	<div id="success-alert" class="alert alert-success" role="alert">
+                	Успешно изтрихте продукта.
+                </div>
+  	        <?php
+  	    } else if ($request->getQueryParameter("operation-update") === "succeed") {
+  	        ?>
+  	        	<div id="success-alert" class="alert alert-success" role="alert">
+                	Успешно ъпдейтнахте продукта.
+                </div>
+  	        <?php
+  	    }
+        ?>
+        
   		<div class="row">
     	  	<?php
         	  $pagination = $response->entity();

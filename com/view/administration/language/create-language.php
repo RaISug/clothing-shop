@@ -4,10 +4,22 @@
 
     include_once 'com/view/administration/header.php';
 
+    $request = $response->request();
     $internationalizationService = new InternationalizationService();
+
 ?>
     <div style="margin-top: 100px" >
     	
+    	<?php
+  		if ($request->getQueryParameter("operation-create") === "succeed") {
+  	        ?>
+  	        	<div id="success-alert" class="alert alert-success" role="alert">
+                	Успешно създадохте езика.
+                </div>
+  	        <?php
+  	    }
+        ?>
+
     	<div id="success-alert" class="alert alert-primary" role="alert">
         	Текста намиращ се в полето "Имена на полета и съобщения ... " трябва да бъде преведен спрямо 
         	новосъздадения език.
