@@ -37,7 +37,7 @@
         	  }
             ?>
 	   	</div>
-       	<?php include "com/view/products/pagination/pagination.php"; ?>
+       	<?php include "com/view/pagination.php"; ?>
     </div>
 
 <?php 

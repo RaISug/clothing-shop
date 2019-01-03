@@ -17,7 +17,7 @@ class CreateUserController extends Controller {
     }
 
     public function canHandle(Request $request) {
-        return $request->isPOSTRequest() && $request->getPath() === "/administration/users/api/v1";
+        return $request->isPOSTRequest() && $request->getPath() == "/administration/users/api/v1";
     }
 
     public function handle(Request $request) {
@@ -29,7 +29,7 @@ class CreateUserController extends Controller {
     }
 
     public function display(Response $response) {
-        $response->redirectTo("/administration/users/api/v1");
+        $response->redirectTo("/administration/users/create");
     }
 
 }
