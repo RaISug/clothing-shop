@@ -25,7 +25,7 @@ class ListCarouselController extends Controller {
         $dbResponse = $this->repository->all();
 
         if ($dbResponse->num_rows == 0) {
-            return (new ResponseBuilder())->withStatusCodeOK()->withEntity(new Pagination(array(), 0, 0, 50))->build();
+            return (new ResponseBuilder())->withStatusCodeOK()->withRequest($request)->withEntity(new Pagination(array(), 0, 0, 50))->build();
         }
         
         $entities = array();
@@ -36,6 +36,7 @@ class ListCarouselController extends Controller {
         
         return (new ResponseBuilder())
                         ->withStatusCodeOK()
+                        ->withRequest($request)
                         ->withEntity(new Pagination($entities, 0, 0, 50))
                         ->build();
     }

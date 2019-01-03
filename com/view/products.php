@@ -27,7 +27,7 @@
                 
 				foreach ($pagination->entities() as $product) {
 			    ?>
-                	<div class="col-md-4">
+                	<div class="col-md-4" style="max-height: 380px">
                   		<div class="card mb-4 shadow-sm">
                   			<a href="<?php echo $response->serverContext(); ?>/products/api/v1/product/<?php echo $product->id(); ?>">
                         		<img class="card-img-top" src="<?php echo $response->serverContext(); ?>/../images/<?php echo $product->getFirstImageName(); ?>" alt="Card image cap">
@@ -37,7 +37,7 @@
     							<br>
                         		<?php echo $internationalizationService->get("products_view_product_name_label"); ?>: <?php echo $product->name(); ?>
     							<br>
-                        		<?php echo $internationalizationService->get("products_view_product_type_label"); ?>: <?php if ($product->type() === "male") { echo "Мъжки"; } else { echo "Дамски"; } ?>
+                        		<?php echo $internationalizationService->get("products_view_product_type_label"); ?>: <?php if ($product->type() === "male") { echo $internationalizationService->get("product_view_product_type_male"); } else { echo $internationalizationService->get("product_view_product_type_female"); } ?>
     							<br>                            		
                         		<?php echo $internationalizationService->get("products_view_product_category_label"); ?>: <?php echo $product->category(); ?>
     							<br>                            		

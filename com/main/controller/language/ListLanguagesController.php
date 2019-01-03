@@ -24,7 +24,7 @@ class ListLanguagesController extends Controller {
         $dbResponse = $this->repository->all();
         
         if ($dbResponse->num_rows == 0) {
-            return (new ResponseBuilder())->withStatusCodeOK()->withEntity(array())->build();
+            return (new ResponseBuilder())->withStatusCodeOK()->withRequest($request)->withEntity(array())->build();
         }
         
         $entities = array();
@@ -35,6 +35,7 @@ class ListLanguagesController extends Controller {
         
         return (new ResponseBuilder())
                         ->withStatusCodeOK()
+                        ->withRequest($request)
                         ->withEntity($entities)
                         ->build();
     }

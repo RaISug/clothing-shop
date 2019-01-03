@@ -67,7 +67,11 @@
                                   	    <?php
                                   	}
                                   	?>
-                              		<a class="dropdown-item" href="<?php echo $response->serverContext(); ?>/products/api/v1/type/male">Всички</a>
+                              		
+                              		<a class="dropdown-item" href="<?php echo $response->serverContext(); ?>/products/api/v1/type/male">
+                              			<?php echo $internationalizationService->get("header_view_navbar_all_categories"); ?>
+                              		</a>
+                              		
                                 </div>
                 			</li>
               			    
@@ -95,7 +99,9 @@
                                   	}
                                   	?>
                 					
-                                  <a class="dropdown-item" href="<?php echo $response->serverContext(); ?>/products/api/v1/type/female">Всички</a>
+                                  	<a class="dropdown-item" href="<?php echo $response->serverContext(); ?>/products/api/v1/type/female">
+								 		<?php echo $internationalizationService->get("header_view_navbar_all_categories"); ?>
+								  	</a>
 
                                 </div>
                 			</li>

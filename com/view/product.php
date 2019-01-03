@@ -67,7 +67,7 @@
 					
 						<tr>
 							<td class="description"><?php echo $internationalizationService->get("product_view_product_type_label"); ?>: </td>
-							<td><?php if ($product->type() === "male") { echo "Мъжки"; } else { echo "Дамски"; }?></td>
+							<td><?php if ($product->type() === "male") { echo $internationalizationService->get("product_view_product_type_male"); } else { echo $internationalizationService->get("product_view_product_type_female"); } ?></td>
 						</tr>
 					
 						<tr>
