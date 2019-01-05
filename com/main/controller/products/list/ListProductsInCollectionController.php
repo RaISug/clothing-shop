@@ -24,7 +24,7 @@ class ListProductsInCollectionController extends Controller {
     }
     
     public function canHandle(Request $request) {
-        return $request->isGETRequest() && preg_match("/\/products\/api\/v1\/collection\/[0-9a-zA-Z -]+$/", $request->getPath()) === 1;
+        return $request->isGETRequest() && preg_match("/\/products\/api\/v1\/collection\/[\w\p{Cyrillic}\-]+$/", $request->getPath()) === 1;
     }
     
     public function handle(Request $request) {

@@ -10,15 +10,15 @@
         <meta name="description" content="">
         <meta name="author" content="">
     
-        <link rel="icon" href="../../../../favicon.ico">
+        <link rel="icon" href="http://localhost/<?php echo $response->resourceContext(); ?>/favicon.ico">
     
-        <link href="http://localhost/com.radoslav.web.shop/com/external/libraries/ui/bootstrap/css/bootstrap.css" rel="stylesheet">
-        <link href="http://localhost/com.radoslav.web.shop/com/external/libraries/ui/font-awesome/all.min.css" rel="stylesheet">
-        <link href="http://localhost/com.radoslav.web.shop/com/view/administration/carousel.css" rel="stylesheet">
-    	<link rel="stylesheet" href="http://localhost/com.radoslav.web.shop/com/view/home.css" />
-    	<link rel="stylesheet" href="http://localhost/com.radoslav.web.shop/com/view/products.css" />
-    	<link rel="stylesheet" href="http://localhost/com.radoslav.web.shop/com/view/cart.css" />
-    	<link rel="stylesheet" href="http://localhost/com.radoslav.web.shop/com/view/product.css" />
+        <link href="http://localhost/<?php echo $response->resourceContext(); ?>/com/external/libraries/ui/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="http://localhost/<?php echo $response->resourceContext(); ?>/com/external/libraries/ui/font-awesome/all.min.css" rel="stylesheet">
+        <link href="http://localhost/<?php echo $response->resourceContext(); ?>/com/view/administration/carousel.css" rel="stylesheet">
+    	<link rel="stylesheet" href="http://localhost/<?php echo $response->resourceContext(); ?>/com/view/home.css" />
+    	<link rel="stylesheet" href="http://localhost/<?php echo $response->resourceContext(); ?>/com/view/products.css" />
+    	<link rel="stylesheet" href="http://localhost/<?php echo $response->resourceContext(); ?>/com/view/cart.css" />
+    	<link rel="stylesheet" href="http://localhost/<?php echo $response->resourceContext(); ?>/com/view/product.css" />
     
   	</head>
 
@@ -40,7 +40,9 @@
 
       		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 
-        		<a class="navbar-brand" href="<?php echo $response->serverContext(); ?>">Лого</a>
+        		<a class="navbar-brand" href="<?php echo $response->serverContext(); ?>">
+        			<img style="max-height: 40px;" src="http://localhost/<?php echo $response->resourceContext(); ?>/logo.png">
+				</a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                   	<span class="navbar-toggler-icon"></span>

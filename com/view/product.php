@@ -102,7 +102,7 @@
                             		foreach ($availableSizes as $availableSize) {
                             		    ?>
                         
-                                		<div style="margin-top: 10px;">
+                                		<div style="margin-top: 10px; margin-right: 5px;">
                                 			<form action="<?php echo $response->serverContext(); ?>/carts/api/v1" method="POST">
                                 				<input type="hidden" name="id" value="<?php echo $product->id(); ?>">
                                 				<input type="hidden" name="size" value="<?php echo $availableSize; ?>">

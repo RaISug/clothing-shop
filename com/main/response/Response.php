@@ -51,12 +51,16 @@ class Response {
         header("Location:http://localhost" . $this->serverContext() . $location);
     }
 
+    public function resourceContext() {
+    	return "/clothing-shop";
+    }
+
     public function serverContext() {
-        return "/com.radoslav.web.shop/t.php";
+        return "/clothing-shop/t.php";
     }
     
     public function imagesContext() {
-        return "/com.radoslav.web.shop/images";
+        return "/clothing-shop/images";
     }
 
     public function request() {

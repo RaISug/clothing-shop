@@ -185,7 +185,7 @@ error_reporting(E_ERROR);
 function errorHandler($errorLevel, $errorMessage, $errorFile, $errorLine, $errorContext) {
     $file = fopen("logs.log", "a");
     
-    fwrite($file, "#" . date("Y/m/d h:i:sa") . "# Error number: [" . $errorLevel . "] error message : [" . $errorMessage ."] error file : [" . $errorFile . "] error line : [" . $errorLine. "] error context : [ " . $errorContext . "]");
+    fwrite($file, "#" . date("Y/m/d h:i:sa") . "# Error number: [" . $errorLevel . "] error message : [" . $errorMessage ."] error file : [" . $errorFile . "] error line : [" . $errorLine. "] error context : [ " . $errorContext . "]" . PHP_EOL);
     
     fclose($file);
 }
