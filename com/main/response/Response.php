@@ -52,15 +52,15 @@ class Response {
     }
 
     public function resourceContext() {
-    	return "/clothing-shop";
+    	return "/com.radoslav.web.shop";
     }
 
     public function serverContext() {
-        return "/clothing-shop/t.php";
+        return "/com.radoslav.web.shop/t.php";
     }
     
     public function imagesContext() {
-        return "/clothing-shop/images";
+        return "/com.radoslav.web.shop/images";
     }
 
     public function request() {
