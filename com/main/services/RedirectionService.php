@@ -9,48 +9,54 @@ class RedirectionService {
     public function __construct() {
         $this->whitelistedPaths = array();
         
-        $this->whitelistedPaths[] = "/\/products\/api\/v1\/type\/\w+?\/category\/[a-zA-Z ]+$/";
-        $this->whitelistedPaths[] = "/\/products\/api\/v1\/type\/\w+?\/category\/[a-zA-Z ]+\?insert=succeed$/";
-        
-        $this->whitelistedPaths[] = "/\/products\/api\/v1\/category\/[a-zA-Z ]+$/";
-        $this->whitelistedPaths[] = "/\/products\/api\/v1\/category\/[a-zA-Z ]+\?insert=succeed$/";
-        
+        $this->whitelistedPaths[] = "/\/products\/api\/v1\/type\/\w+?\/category\/[\w\p{Cyrillic}\-\s]+$/u";
+        $this->whitelistedPaths[] = "/\/products\/api\/v1\/category\/[\w\p{Cyrillic}\-\s]+$/u";
         $this->whitelistedPaths[] = "/\/products\/api\/v1\/type\/\w+$/";
-        $this->whitelistedPaths[] = "/\/products\/api\/v1\/type\/\w+\?insert=succeed$/";
-        
         $this->whitelistedPaths[] = "/\/products\/api\/v1$/";
-        $this->whitelistedPaths[] = "/\/products\/api\/v1\?insert=succeed$/";
-        
-        $this->whitelistedPaths[] = "/\/products\/api\/v1\/collection\/[0-9a-zA-Z -]+$/";
-        $this->whitelistedPaths[] = "/\/products\/api\/v1\/collection\/[0-9a-zA-Z -]+\?insert=succeed$/";
-        
+        $this->whitelistedPaths[] = "/\/products\/api\/v1\/collection\/[\w\p{Cyrillic}\-\s]+$/u";
         $this->whitelistedPaths[] = "/\/products\/api\/v1\/product\/[0-9]+$/";
-        $this->whitelistedPaths[] = "/\/products\/api\/v1\/product\/[0-9]+\?insert=succeed$/";
-        
         $this->whitelistedPaths[] = "/\/carts\/api\/v1$/";
-        $this->whitelistedPaths[] = "/\/carts\/api\/v1\?insert=succeed$/";
     }
 
     public function constructRedirectionPath() {    
         $matches = array();
 
-        $referrer = $_SERVER['HTTP_REFERER'];
-
+        $requestPath = urldecode($this->extractRequestPath());
         foreach ($this->whitelistedPaths as $whitelistedPath) {
-            if (preg_match($whitelistedPath, $referrer, $matches) === 1) {
-                if ($this->endsWith($matches[0], "?insert=succeed")) {
-                    return $matches[0];
-                }
+            if (preg_match($whitelistedPath, $requestPath, $matches) == 1) {
+            	$queryPath = $this->extractQueryPath();
+            	if ($queryPath == "") {
+            		return $matches[0] . "?insert=succeed";
+            	}
 
-                return $matches[0] . "?insert=succeed";
+            	if (strpos($queryPath, "insert=succeed") === FALSE) {
+	                return $matches[0] . "?insert=succeed&" . $queryPath;
+            	}
+
+            	return $matches[0] . "?" . $queryPath;
             }
         }
-        
+
         return "/products/api/v1?insert=succeed";
     }
 
-    function endsWith($haystack, $needlee) {
-        return (substr($haystack, -strlen($needlee)) === $needlee);
+    private function extractRequestPath() {
+    	$referrer = $_SERVER['HTTP_REFERER'];
+    
+    	$requestLine = explode("?", $referrer);
+
+    	return $requestLine[0];
+    }
+
+    private function extractQueryPath() {
+    	$referrer = $_SERVER['HTTP_REFERER'];
+
+    	$requestLine = explode("?", $referrer);
+    	if (count($requestLine) == 1) {
+    		return "";
+    	}
+
+    	return $requestLine[1];
     }
 
 }

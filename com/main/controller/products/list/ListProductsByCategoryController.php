@@ -24,7 +24,7 @@ class ListProductsByCategoryController extends Controller {
     }
 
     public function canHandle(Request $request) {
-        return $request->isGETRequest() && preg_match("/\/products\/api\/v1\/category\/[\w\p{Cyrillic}\-]+$/", $request->getPath()) === 1;
+        return $request->isGETRequest() && preg_match("/\/products\/api\/v1\/category\/[\w\p{Cyrillic}\-\s]+$/u", $request->getPath()) === 1;
     }
 
     public function handle(Request $request) {
