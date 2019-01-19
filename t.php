@@ -34,6 +34,7 @@ require_once 'com/main/controller/cart/RemoveProductFromCartController.php';
 
 require_once 'com/main/controller/users/CreateUserController.php';
 require_once 'com/main/controller/users/ValidateCredentialsController.php';
+require_once 'com/main/controller/users/LogoutController.php';
 
 require_once 'com/main/controller/categories/ListCategoriesController.php';
 require_once 'com/main/controller/categories/DeleteCategoryController.php';
@@ -90,6 +91,7 @@ require_once 'com/main/filter/ResponseFilter.php';
 require_once 'com/main/filter/request/AuthenticationFilter.php';
 require_once 'com/main/filter/request/AuthenticatedCallsRedirectionFilter.php';
 require_once 'com/main/filter/request/InternationalizationRequestFilter.php';
+require_once 'com/main/filter/request/UnauthenticatedCallsRedirectionFilter.php';
 
 require_once 'com/main/filter/response/JsonConverterFilter.php';
 require_once 'com/main/filter/response/CategoriesRetrievalFilter.php';
@@ -98,6 +100,7 @@ require_once 'com/main/filter/response/DropdownsRetrievalFilter.php';
 require_once 'com/main/filter/response/CarouselsRetrievalFilter.php';
 require_once 'com/main/filter/response/InternationalizationFilter.php';
 require_once 'com/main/filter/response/LanguageRetrievalFilter.php';
+require_once 'com/main/filter/response/CartProductsRetrievalFilter.php';
 
 require_once 'com/main/session/SessionService.php';
 
@@ -179,6 +182,9 @@ use controller\ChangeActiveLanguageController;
 use filter\InternationalizationRequestFilter;
 use controller\ListSingleLanguageController;
 use controller\UpdateLanguageController;
+use filter\CartProductsRetrievalFilter;
+use filter\UnauthenticatedCallsRedirectionFilter;
+use controller\LogoutController;
 
 error_reporting(E_ERROR);
 
@@ -197,7 +203,8 @@ $request = new Request();
 $requestFilters = array(
     new AuthenticationFilter(),
     new AuthenticatedCallsRedirectionFilter(),
-    new InternationalizationRequestFilter()
+    new InternationalizationRequestFilter(),
+    new UnauthenticatedCallsRedirectionFilter()
 );
 
 $controllers = array(
@@ -239,6 +246,7 @@ $controllers = array(
     new ChangeActiveLanguageController(),
     new ListSingleLanguageController(),
     new UpdateLanguageController(),
+    new LogoutController(),
     new SimpleController()
 );
 
@@ -249,7 +257,8 @@ $responseFilters = array(
     new DropdownsRetrievalFilter(),
     new CarouselsRetrievalFilter(),
     new InternationalizationFilter(),
-    new LanguageRetrievalFilter()
+    new LanguageRetrievalFilter(),
+    new CartProductsRetrievalFilter()
 );
 
 try {

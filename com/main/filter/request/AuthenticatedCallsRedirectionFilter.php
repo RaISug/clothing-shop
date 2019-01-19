@@ -19,7 +19,8 @@ class AuthenticatedCallsRedirectionFilter implements RequestFilter {
 
     public function filter(Request $request) {
         $pathsToRedirect = array(
-            "/login"
+            "/login",
+            "/registration"
         );
         
         foreach ($pathsToRedirect as $path) {

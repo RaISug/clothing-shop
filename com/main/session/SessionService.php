@@ -26,6 +26,10 @@ class SessionService {
         return $_SESSION['user'] == null;
     }
 
+    public function isRequestMadeByUserWithoutPrivileges() {
+        return $_SESSION['user'] == null || $_SESSION['user']->roleId() == 0;
+    }
+
     public function getAttribute($name) {
         return $_SESSION[$name];
     }

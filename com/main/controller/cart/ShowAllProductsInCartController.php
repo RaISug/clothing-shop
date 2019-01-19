@@ -13,6 +13,7 @@ use response\ResponseBuilder;
 class ShowAllProductsInCartController extends Controller {
 
     private $cart;
+    private $path;
     private $repository;
 
     public function __construct() {
@@ -21,10 +22,14 @@ class ShowAllProductsInCartController extends Controller {
     }
 
     public function canHandle(Request $request) {
-        return $request->isGETRequest() && $request->getPath() === "/carts/api/v1";
+        return $request->isGETRequest() && 
+                        ($request->getPath() === "/carts/api/v1"
+                            || $request->getPath() === "/newdesign/carts/api/v1");
     }
 
     public function handle(Request $request) {
+        $this->path = $request->getPath();
+
         $productIds = array();
         
         $cartItems = $this->cart->getCartItems();
@@ -61,7 +66,11 @@ class ShowAllProductsInCartController extends Controller {
     }
 
     public function display(Response $response) {
-        include "com/view/cart.php";
+        if ($this->path === "/newdesign/carts/api/v1") {
+            include "newdesign/cart.php";
+        } else {
+            include "com/view/cart.php";
+        }
     }
 
 }

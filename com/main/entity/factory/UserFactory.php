@@ -9,10 +9,12 @@ class UserFactory {
 
     public function createUserFromRequest(Request $request) {
         $data = array(
-            'USERNAME' => $request->getParameter("username"),
-            'PASSWORD' => $request->getParameter("password"),
-            'FIRST_NAME' => $request->getParameter("firstname"),
-            'LAST_NAME' => $request->getParameter("lastname")
+            'username' => $request->getParameter("username"),
+            'password' => $request->getParameter("password"),
+            'first_name' => $request->getParameter("firstname"),
+            'last_name' => $request->getParameter("lastname"),
+            'email' => $request->getParameter("email"),
+            'phone' => $request->getParameter("phone")
         );
 
         return new User($data);

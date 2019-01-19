@@ -9,13 +9,19 @@ class User {
     private $password;
     private $firstname;
     private $lastname;
+    private $email;
+    private $phone;
+    private $roleId;
 
     public function __construct($data) {
         $this->id = $data['ID'];
-        $this->username = $data['USERNAME'];
-        $this->password = $data['PASSWORD'];
-        $this->firstname = $data['FIRST_NAME'];
-        $this->lastname = $data['LAST_NAME'];
+        $this->username = $data['username'];
+        $this->password = $data['password'];
+        $this->firstname = $data['first_name'];
+        $this->lastname = $data['last_name'];
+        $this->email = $data['email'];
+        $this->phone = $data['phone'];
+        $this->roleId = $data['role_id'];
     }
 
     public function id() {
@@ -38,4 +44,15 @@ class User {
         return $this->lastname;
     }
 
+    public function email() {
+        return $this->email;
+    }
+    
+    public function phone() {
+        return $this->phone;
+    }
+
+    public function roleId() {
+        return $this->roleId;
+    }
 }

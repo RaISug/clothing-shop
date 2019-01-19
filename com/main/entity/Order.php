@@ -16,6 +16,7 @@ class Order {
     private $elements;
     private $isProcessed;
     private $orderDate;
+    private $userId;
 
     public function __construct($data) {
         $this->id = $data['id'];
@@ -28,6 +29,7 @@ class Order {
         $this->elements = $data['elements'];
         $this->isProcessed = $data['is_processed'];
         $this->orderDate = $data['order_date'];
+        $this->userId = $data['user_id'];
     }
 
     public function id() {
@@ -87,6 +89,14 @@ class Order {
         }
         
         return $products;
+    }
+
+    public function userId() {
+        return $this->userId;
+    }
+
+    public function setUserId($userId) {
+        $this->userId = $userId;
     }
 
 }

@@ -13,6 +13,7 @@ use entity\Product;
 use entity\ProductInCart;
 use exception\BadRequestException;
 use repository\ProductRepository;
+use session\SessionService;
 
 class CreateOrderController extends Controller {
 
@@ -21,6 +22,7 @@ class CreateOrderController extends Controller {
     private $repository;
     private $productRepository;
     private $emailService;
+    private $sessionService;
 
     public function __construct() {
         $this->cart = new Cart();
@@ -28,6 +30,7 @@ class CreateOrderController extends Controller {
         $this->repository = new OrderRepository();
         $this->productRepository = new ProductRepository();
         $this->emailService = new EmailService();
+        $this->sessionService = new SessionService();
     }
 
     public function canHandle(Request $request) {
@@ -46,6 +49,7 @@ class CreateOrderController extends Controller {
 
         $order->setIsProcessed(0);
         $order->setElements($elements);
+        $order->setUserId($this->sessionService->getAuthenticatedUser()->id());
 
         $this->repository->persist($order);
 

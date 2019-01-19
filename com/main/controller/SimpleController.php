@@ -24,9 +24,12 @@ class SimpleController extends Controller {
         $pathToViewMappings = array(
             "" => "com/view/home.php",
             "/" => "com/view/home.php",
+            "/newdesign" => "newdesign/home.php",
             "/login" => "com/view/login.php",
+            "/registration" => "com/view/registration.php",
             "/orders/api/v1" => "com/view/orders.php",
             "/orders/api/v1/order/submitted" => "com/view/order-submitted.php",
+            "/users/api/v1/profile" => "com/view/user-profile.php",
             "/administration" => "com/view/administration/home.php",
             "/administration/" => "com/view/administration/home.php",
             "/administration/collections/create" => "com/view/administration/collections/create-collection.php",

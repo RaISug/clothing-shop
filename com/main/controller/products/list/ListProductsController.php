@@ -29,7 +29,8 @@ class ListProductsController extends Controller {
         return $request->isGETRequest() && 
                     ($request->getPath() === "/products/api/v1" 
                         || $request->getPath() === "/administration/products/api/v1"
-                            || $request->getPath() === "/administration/collections/add/products");
+                            || $request->getPath() === "/administration/collections/add/products"
+                                || $request->getPath() === "/newdesign/products/api/v1" );
     }
 
     public function handle(Request $request) {
@@ -66,6 +67,8 @@ class ListProductsController extends Controller {
             include "com/view/administration/products/manage-products.php";
         } else if ($this->requestPath === "/administration/collections/add/products") { 
             include "com/view/administration/collections/add-products-to-collection.php";
+        } else  if ($this->requestPath === "/newdesign/products/api/v1") {
+            include "newdesign/products.php";
         } else {
             include "com/view/products.php";
         }

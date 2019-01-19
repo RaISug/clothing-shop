@@ -16,9 +16,9 @@ class OrderRepository {
     public function persist(Order $order) {
         $connection = $this->connectionFactory->create();
 
-        $statement = $connection->prepare("INSERT INTO orders (user_first_name, user_last_name, email, phone, address, comment, elements, is_processed) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $statement = $connection->prepare("INSERT INTO orders (user_first_name, user_last_name, email, phone, address, comment, elements, is_processed, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-        $statement->bind_param("sssssssi", $order->userFirstName(), $order->userLastName(), $order->email(), $order->phone(), $order->address(), $order->comment(), json_encode($order->elements()), $order->isProcessed());
+        $statement->bind_param("sssssssii", $order->userFirstName(), $order->userLastName(), $order->email(), $order->phone(), $order->address(), $order->comment(), json_encode($order->elements()), $order->isProcessed(), $order->userId());
 
         if ($statement->execute() === FALSE) {
             throw new InternalServerErrorException("Failed to create order");

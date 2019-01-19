@@ -17,7 +17,10 @@ class CarouselsRetrievalFilter implements ResponseFilter {
     }
     
     public function canHandle(Request $request, Response $response) {
-        return $request->isGETRequest() && ($request->getPath() == "" || $request->getPath() === "/");
+        return $request->isGETRequest() && 
+                                ($request->getPath() == "" 
+                                    || $request->getPath() === "/"
+                                        || $request->getPath() === "/newdesign");
     }
     
     public function filter(Response &$response) {

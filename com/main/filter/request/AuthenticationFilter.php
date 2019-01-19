@@ -23,7 +23,7 @@ class AuthenticationFilter implements RequestFilter {
             throw new UnauthorizedException("There is no active session.");
         }
 
-        if ($this->sessionService->isUnauthenticatedRequest()) {
+        if ($this->sessionService->isRequestMadeByUserWithoutPrivileges()) {
             throw new UnauthorizedException("There is no active session.");
         }
     }

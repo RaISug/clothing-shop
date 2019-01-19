@@ -20,7 +20,7 @@ class SingleProductRetrievalController extends Controller {
     }
 
     public function canHandle(Request $request) {
-        return $request->isGETRequest() && preg_match("/(^\/administration\/products\/api\/v1\/product\/[0-9]+$)|(^\/products\/api\/v1\/product\/[0-9]+$)/", $request->getPath()) == 1;
+        return $request->isGETRequest() && preg_match("/(^\/administration\/products\/api\/v1\/product\/[0-9]+$)|(^\/products\/api\/v1\/product\/[0-9]+$)|(^\/newdesign\/products\/api\/v1\/product\/[0-9]+$)/", $request->getPath()) == 1;
     }
 
     public function handle(Request $request) {
@@ -40,6 +40,8 @@ class SingleProductRetrievalController extends Controller {
     public function display(Response $response) {
         if ($this->isAdministrationPath()) {
             include "com/view/administration/products/update-product.php";
+        } else if ($this->isNewDesignPath()) {
+            include "newdesign/product.php";
         } else {
             include "com/view/product.php";
         }
@@ -47,6 +49,10 @@ class SingleProductRetrievalController extends Controller {
 
     private function isAdministrationPath() {
         return strpos($this->requestPath, "/administration") === 0;
+    }
+    
+    private function isNewDesignPath() {
+        return strpos($this->requestPath, "/newdesign") === 0;
     }
 
 }

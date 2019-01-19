@@ -3,7 +3,7 @@
 class ConnectionFactory {
     
     public function create() {
-        return new mysqli("localhost", "root", "", "CLOTHING_SHOP");
+        return new mysqli("localhost", "radoslav", "", "CLOTHING_SHOP");
     }
 
 }

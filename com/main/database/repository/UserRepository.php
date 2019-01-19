@@ -16,10 +16,26 @@ class UserRepository {
     public function persist(User $user) {
         $connection = $this->connectionFactory->create();
 
-        $statement = $connection->prepare("INSERT INTO users (USERNAME, PASSWORD, FIRST_NAME, LAST_NAME) VALUES (?, ?, ?, ?)");
+        $statement = $connection->prepare("INSERT INTO users (username, password, first_name, last_name, email, phone, role_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
-        $statement->bind_param("ssss", $user->username(), md5($user->password()), $user->firstname(), $user->lastname());
+        $roleId = 0;
 
+        $statement->bind_param("ssssssi", $user->username(), md5($user->password()), $user->firstname(), $user->lastname(), $user->email(), $user->phone(), $roleId);
+
+        if ($statement->execute() === FALSE) {
+            throw new InternalServerErrorException("Failed to create product");
+        }
+    }
+
+    public function persistAsAdministrator(User $user) {
+        $connection = $this->connectionFactory->create();
+        
+        $statement = $connection->prepare("INSERT INTO users (username, password, first_name, last_name, email, phone, role_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        
+        $roleId = 1;
+
+        $statement->bind_param("ssssssi", $user->username(), md5($user->password()), $user->firstname(), $user->lastname(), $user->email(), $user->phone(), $roleId);
+        
         if ($statement->execute() === FALSE) {
             throw new InternalServerErrorException("Failed to create product");
         }
@@ -34,6 +50,18 @@ class UserRepository {
 
         $statement->execute();
 
+        return $statement->get_result();
+    }
+
+    public function byUsername($username) {
+        $connection = $this->connectionFactory->create();
+        
+        $statement = $connection->prepare("SELECT * FROM users WHERE USERNAME = ?");
+        
+        $statement->bind_param("s", $username);
+        
+        $statement->execute();
+        
         return $statement->get_result();
     }
 

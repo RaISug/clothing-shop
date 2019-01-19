@@ -73,7 +73,6 @@ class Request {
         $result = "";
 
         $values = $this->getParameter($name);
-        echo $values;
         foreach ($values as $value) {
             $result .= $value . ";";
         }

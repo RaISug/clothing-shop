@@ -51,6 +51,10 @@ class Response {
         header("Location:http://localhost" . $this->serverContext() . $location);
     }
 
+    public function host() {
+        return "http://localhost";
+    }
+
     public function resourceContext() {
     	return "/com.radoslav.web.shop";
     }
