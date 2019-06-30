@@ -23,7 +23,7 @@ class UserRepository {
         $statement->bind_param("ssssssi", $user->username(), md5($user->password()), $user->firstname(), $user->lastname(), $user->email(), $user->phone(), $roleId);
 
         if ($statement->execute() === FALSE) {
-            throw new InternalServerErrorException("Failed to create product");
+            throw new InternalServerErrorException("Failed to create user");
         }
     }
 
@@ -37,7 +37,7 @@ class UserRepository {
         $statement->bind_param("ssssssi", $user->username(), md5($user->password()), $user->firstname(), $user->lastname(), $user->email(), $user->phone(), $roleId);
         
         if ($statement->execute() === FALSE) {
-            throw new InternalServerErrorException("Failed to create product");
+            throw new InternalServerErrorException("Failed to create user");
         }
     }
 
